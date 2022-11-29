@@ -1,0 +1,86 @@
+INHERIT: config/nav.yml
+
+site_name: CloudEvent 文档
+site_url: https://cloudevents.io/
+site_description: 云事件文档
+docs_dir: source
+site_dir: docs
+extra_css:
+  - stylesheets/extra.css
+
+repo_url: https://github.com/wdk-docs/cloudevents-docs
+edit_uri: edit/main/docs
+
+theme:
+  name: material
+  logo: images/logos/cloudevents-icon-color.png
+  favicon: images/favicon.ico
+  # custom_dir: overrides
+  features:
+    - navigation.tabs
+    - navigation.tracking
+    - navigation.tabs.sticky
+    - navigation.top
+
+markdown_extensions:
+  # - mdx_include:
+  #     base_path: docs
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - attr_list
+  - meta
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path: source/snippets
+  - pymdownx.keys
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.escapeall
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - admonition
+  - toc:
+      permalink: true
+  - def_list
+
+plugins:
+  search:
+    separator: '[\/\s\-\.]+'
+  # macros:
+  #   module_name: hack/macros
+  #   include_dir: source/snippets
+  exclude:
+    glob:
+      # Exclude files that contain hugo specific shortcodes
+      # (either the include shortcode or not-converted-yet tabs).
+      - snippets/*
+      - smoketest.md
+  awesome-pages:
+    filename: ".index"
+    collapse_single_pages: true
+    strict: false
+
+copyright: "版权所有 © 2022 CloudEvent Authors"
+
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/CloudEventsIO
+    - icon: fontawesome/brands/github
+      link: https://github.com/cloudevents/spec
+      name: CloudEvent Community on Github
+
+  # TODO: Replace with https://github.com/mkdocs/mkdocs/pull/2267 once mkdocs 1.2 is out.
+  version_warning: !!python/object/apply:os.getenv ["VERSION_WARNING"]
+  cloudevent_version: !!python/object/apply:os.getenv ["CLOUDEVENT_VERSION"]
+  branch: !!python/object/apply:os.getenv ["SAMPLES_BRANCH", "main"]
+  analytics:
+    provider: google
+    property: G-YRMNFYE32R
+  version:
+    provider: mike

@@ -1,0 +1,50 @@
+INHERIT: redirects.yml
+
+nav:
+      - 主页: index.md
+      - 规范:
+              - 规范: spec.md
+              - 入门文档: primer.md
+              - 工作草案:
+                      - cbor格式: working-drafts/cbor-format.md
+                      - xml格式: working-drafts/xml-format.md
+              - 网络钩子: http-webhook.md
+              - 专有规格: proprietary-specs.md
+              - 发布说明: RELEASE_NOTES.md
+              - 翻译: translations.md
+      - SDK:
+              - 开发组件: SDK/index.md
+              - JavaScript SDK: SDK/sdk-javascript.md
+              - CSharp: https://github.com/cloudevents/sdk-csharp
+              - Go SDK: https://github.com/cloudevents/sdk-go
+              - Java SDK: https://github.com/cloudevents/sdk-java
+              - PHP SDK: https://github.com/cloudevents/sdk-php
+              - PowerShell: https://github.com/cloudevents/sdk-powershell
+              - Python SDK: https://github.com/cloudevents/sdk-python
+              - Ruby SDK: https://github.com/cloudevents/sdk-ruby
+              - Rust SDK: https://github.com/cloudevents/sdk-rust
+      - 适配器:
+              适配器: adapters/index.md
+              aws-s3: adapters/aws-s3.md
+              aws-sns: adapters/aws-sns.md
+              couchdb: adapters/couchdb.md
+              github: adapters/github.md
+              gitlab: adapters/gitlab.md
+      - 协议绑定:
+              - AMQP: bindings/amqp-protocol-binding.md
+              - HTTP: bindings/http-protocol-binding.md
+              - Kafka: bindings/kafka-protocol-binding.md
+              - MQTT: bindings/mqtt-protocol-binding.md
+              - NATS: bindings/nats-protocol-binding.md
+              - WebSockets: bindings/websockets-protocol-binding.md
+      - 扩展:
+              - Dataref: extensions/dataref.md
+              - 分布式跟踪: extensions/distributed-tracing.md
+              - 扩展分区: extensions/partitioning.md
+              - 抽样率扩展: extensions/sampledrate.md
+              - 序列: extensions/sequence.md
+              - 严重程度扩展: extensions/severity.md
+      - 格式:
+              - Avro格式: formats/avro-format.md
+              - JSON格式: formats/json-format.md
+              - Protobuf格式: formats/protobuf-format.md

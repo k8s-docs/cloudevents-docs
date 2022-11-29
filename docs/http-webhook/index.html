@@ -1,0 +1,1804 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="云事件文档">
+      
+      
+      
+        <link rel="canonical" href="https://cloudevents.io/http-webhook/">
+      
+      <link rel="icon" href="../images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.7">
+    
+    
+      
+        <title>网络钩子 - CloudEvent 文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.9d5733d3.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+
+  <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-YRMNFYE32R"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","G-YRMNFYE32R",{page_path:e.pathname})})})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YRMNFYE32R"></script>
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#http-11-web-hooks-103" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        <aside class="md-banner md-banner--warning">
+          
+        </aside>
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CloudEvent 文档" class="md-header__button md-logo" aria-label="CloudEvent 文档" data-md-component="logo">
+      
+  <img src="../images/logos/cloudevents-icon-color.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CloudEvent 文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              网络钩子
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/wdk-docs/cloudevents-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../index.md" class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../spec/" class="md-tabs__link md-tabs__link--active">
+        规范
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../SDK/" class="md-tabs__link">
+        SDK
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../adapters/" class="md-tabs__link">
+        适配器
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../bindings/amqp-protocol-binding/" class="md-tabs__link">
+        协议绑定
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../extensions/dataref/" class="md-tabs__link">
+        扩展
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../formats/avro-format/" class="md-tabs__link">
+        格式
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CloudEvent 文档" class="md-nav__button md-logo" aria-label="CloudEvent 文档" data-md-component="logo">
+      
+  <img src="../images/logos/cloudevents-icon-color.png" alt="logo">
+
+    </a>
+    CloudEvent 文档
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/wdk-docs/cloudevents-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.md" class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          规范
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="规范" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          规范
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spec/" class="md-nav__link">
+        规范
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../primer/" class="md-nav__link">
+        入门文档
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          工作草案
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="工作草案" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          工作草案
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-drafts/cbor-format/" class="md-nav__link">
+        cbor格式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-drafts/xml-format/" class="md-nav__link">
+        xml格式
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          网络钩子
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        网络钩子
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    摘要
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    目录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    1. Introduction/简介
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction/简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-conformance" class="md-nav__link">
+    1.1. Conformance/一致性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-relation-to-httphttp" class="md-nav__link">
+    1.2. Relation to HTTP/与HTTP的关系
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-delivering-notifications" class="md-nav__link">
+    2. Delivering notifications/传输通知
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Delivering notifications/传输通知">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1. 传输请求
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2. 传输响应
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-authorization" class="md-nav__link">
+    3. Authorization/认证
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Authorization/认证">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1. 头部请求认证字段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-uri" class="md-nav__link">
+    3.2 URI 查询参数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-abuse-protection" class="md-nav__link">
+    4. Abuse Protection/滥用保护机制
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Abuse Protection/滥用保护机制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1. 验证请求
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1. 验证请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#412-webhook-request-origin" class="md-nav__link">
+    4.1.2. WebHook-Request-Origin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413-webhook-" class="md-nav__link">
+    4.1.3. WebHook-请求回调
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#414-webhook-" class="md-nav__link">
+    4.1.4. WebHook-请求速率
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2. 验证响应
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2. 验证响应">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-webhook-" class="md-nav__link">
+    4.2.1. WebHook-允许源头
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-webhook-" class="md-nav__link">
+    4.2.2. WebHook-允许速率
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-references" class="md-nav__link">
+    5. References/引用
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proprietary-specs/" class="md-nav__link">
+        专有规格
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RELEASE_NOTES/" class="md-nav__link">
+        发布说明
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../translations/" class="md-nav__link">
+        翻译
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          SDK
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SDK" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          SDK
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SDK/" class="md-nav__link">
+        开发组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SDK/sdk-javascript/" class="md-nav__link">
+        JavaScript SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/cloudevents/sdk-csharp" class="md-nav__link">
+        CSharp
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/cloudevents/sdk-go" class="md-nav__link">
+        Go SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/cloudevents/sdk-java" class="md-nav__link">
+        Java SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/cloudevents/sdk-php" class="md-nav__link">
+        PHP SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/cloudevents/sdk-powershell" class="md-nav__link">
+        PowerShell
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/cloudevents/sdk-python" class="md-nav__link">
+        Python SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/cloudevents/sdk-ruby" class="md-nav__link">
+        Ruby SDK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/cloudevents/sdk-rust" class="md-nav__link">
+        Rust SDK
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          适配器
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="适配器" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          适配器
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adapters/" class="md-nav__link">
+        适配器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adapters/aws-s3/" class="md-nav__link">
+        aws-s3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adapters/aws-sns/" class="md-nav__link">
+        aws-sns
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adapters/couchdb/" class="md-nav__link">
+        couchdb
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adapters/github/" class="md-nav__link">
+        github
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adapters/gitlab/" class="md-nav__link">
+        gitlab
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          协议绑定
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="协议绑定" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          协议绑定
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bindings/amqp-protocol-binding/" class="md-nav__link">
+        AMQP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bindings/http-protocol-binding/" class="md-nav__link">
+        HTTP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bindings/kafka-protocol-binding/" class="md-nav__link">
+        Kafka
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bindings/mqtt-protocol-binding/" class="md-nav__link">
+        MQTT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bindings/nats-protocol-binding/" class="md-nav__link">
+        NATS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bindings/websockets-protocol-binding/" class="md-nav__link">
+        WebSockets
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          扩展
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="扩展" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          扩展
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extensions/dataref/" class="md-nav__link">
+        Dataref
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extensions/distributed-tracing/" class="md-nav__link">
+        分布式跟踪
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extensions/partitioning/" class="md-nav__link">
+        扩展分区
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extensions/sampledrate/" class="md-nav__link">
+        抽样率扩展
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extensions/sequence/" class="md-nav__link">
+        序列
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extensions/severity/" class="md-nav__link">
+        严重程度扩展
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          格式
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="格式" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          格式
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formats/avro-format/" class="md-nav__link">
+        Avro格式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formats/json-format/" class="md-nav__link">
+        JSON格式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../formats/protobuf-format/" class="md-nav__link">
+        Protobuf格式
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    摘要
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    目录
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    1. Introduction/简介
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction/简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-conformance" class="md-nav__link">
+    1.1. Conformance/一致性
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-relation-to-httphttp" class="md-nav__link">
+    1.2. Relation to HTTP/与HTTP的关系
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-delivering-notifications" class="md-nav__link">
+    2. Delivering notifications/传输通知
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Delivering notifications/传输通知">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1. 传输请求
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2. 传输响应
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-authorization" class="md-nav__link">
+    3. Authorization/认证
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Authorization/认证">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1. 头部请求认证字段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-uri" class="md-nav__link">
+    3.2 URI 查询参数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-abuse-protection" class="md-nav__link">
+    4. Abuse Protection/滥用保护机制
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Abuse Protection/滥用保护机制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1. 验证请求
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1. 验证请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#412-webhook-request-origin" class="md-nav__link">
+    4.1.2. WebHook-Request-Origin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413-webhook-" class="md-nav__link">
+    4.1.3. WebHook-请求回调
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#414-webhook-" class="md-nav__link">
+    4.1.4. WebHook-请求速率
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2. 验证响应
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2. 验证响应">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-webhook-" class="md-nav__link">
+    4.2.1. WebHook-允许源头
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-webhook-" class="md-nav__link">
+    4.2.2. WebHook-允许速率
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-references" class="md-nav__link">
+    5. References/引用
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/wdk-docs/cloudevents-docs/edit/main/docs/http-webhook.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="http-11-web-hooks-103">用于事件传输的 HTTP 1.1 Web Hooks - 1.0.3（制作中）<a class="headerlink" href="#http-11-web-hooks-103" title="Permanent link">&para;</a></h1>
+<h2 id="_1">摘要<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>"Webhooks"是一种被广泛应用在应用和HTTP终端间传输通知消息的模式。尽管这种模式已经被广泛使用，但目前仍然没有一个对Web Hooks的正式定义。本规范旨在制定一个用于 <a href="../spec/">CNCF CloudEvents</a>的Web Hooks的定义，但本定义仅作用于CloudEvents范围内。</p>
+<h2 id="_2">目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><a href="#1-introduction简介">简介</a></p>
+</li>
+<li>
+<p>1.1. <a href="#11-conformance一致性">一致性</a></p>
+</li>
+<li>
+<p>1.2. <a href="#12-relation-to-http与http的关系">与HTTP的关系</a></p>
+</li>
+<li>
+<p><a href="#2-delivering-notifications传输通知">传输通知</a></p>
+</li>
+<li><a href="#3-authorization认证">认证</a></li>
+<li><a href="#4-abuse-protection滥用保护机制">滥用保护</a></li>
+<li><a href="#5-references引用">引用</a></li>
+</ol>
+<h2 id="1-introduction">1. Introduction/简介<a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
+<p><a href="https://progrium.github.io/blog/2007/05/03/web-hooks-to-revolutionize-the-web/index.html">"Webhooks"</a>是一种被广泛应用在应用和HTTP终端间传输通知消息的模式。这些Webhook应用，允许其它应用程序注册成为一个接收当前有效通知的HTTP终端。</p>
+<p>本规范根据以下内容制定了一套HTTP方法：发送者下发通知的过程、在事件传输中保护传输目标的认证模型以及一个保护发送者不被滥用成为HTTP洪水攻击发起者的注册握手机制。</p>
+<h3 id="11-conformance">1.1. Conformance/一致性<a class="headerlink" href="#11-conformance" title="Permanent link">&para;</a></h3>
+<p>本文档中的关键词 "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD","SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" 需要按照 <a href="https://tools.ietf.org/html/rfc2119">RFC2119</a> 中的描述来理解。</p>
+<h3 id="12-relation-to-httphttp">1.2. Relation to HTTP/与HTTP的关系<a class="headerlink" href="#12-relation-to-httphttp" title="Permanent link">&para;</a></h3>
+<p>本规范规定了一系列规则，以限制具体<a href="https://tools.ietf.org/html/rfc7231#section-4">HTTP 方法</a>和头部的使用以及处理。</p>
+<p>本规范同样适用于HTTP/2 (<a href="https://tools.ietf.org/html/rfc7540">RFC7540</a>),因为它本身就与HTTP 1.1 的语义兼容。</p>
+<h2 id="2-delivering-notifications">2. Delivering notifications/传输通知<a class="headerlink" href="#2-delivering-notifications" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1. 传输请求<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>通知是通过HTTP请求的方式传输的，在响应中携带了该传输的状态。</p>
+<p>在连接中必须使用HTTP-over-TLS (HTTPS) <a href="https://tools.ietf.org/html/rfc2818">RFC2818</a>。</p>
+<p>用来传输请求的HTTP方法必须是<a href="https://tools.ietf.org/html/rfc7231#section-4.3.3">POST类型</a>.</p>
+<p>在HTTP 头部中<a href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5"><code>Content-Type</code></a>必须被指定，同时每个请求都必须要携带该内容类型下的有效负载(即有效内容)。本规范不允许没有携带有效负载的请求（比如某些通知请求的全部数据都在HTTP头部而没有内容数据）。</p>
+<p>除上述限制外，本规范不会更多地限制通知的内容，同样不会强制用来传输的<a href="https://tools.ietf.org/html/rfc7230#section-5.1">HTTP 目标资源</a>。</p>
+<p>如果传输目标支持并要求<a href="#4-abuse-protection滥用保护机制">滥用保护</a>机制，则传输的请求必须包含<code>WebHook-Request-Origin</code>头部。<code>WebHook-Request-Origin</code>头部的值是一个能标识出发送者的DNS域名表达形式。</p>
+<h3 id="22">2.2. 传输响应<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>传输响应可能会包含一种提供具体状态信息的负载，这些信息是用来处理错误的。本规范不会去定义这种负载。</p>
+<p>服务端的响应必须不能包含<a href="https://tools.ietf.org/html/rfc7231#section-6.4">3xx HTTP 状态码</a>同时客户端也不能使用此类状态码进行跳转。</p>
+<p>一旦请求被接收、处理了且在响应中包含了处理细节的负载，则响应必须要包含<a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">200 OK</a>或是<a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">201 Created</a>状态码。在这种情形下，该响应必须要包含<a href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5"><code>Content-Type</code></a>头部。</p>
+<p>如果请求被接收、处理了，但是请求中没有有效负载，则响应中必须包含<a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">201 Created</a> or <a href="https://tools.ietf.org/html/rfc7231#section-6.3.5">204 No Content</a>状态码。</p>
+<p>如果请求被接收了，但尚未被处理或是处理状态仍是未知的，则响应中必须包含<a href="https://tools.ietf.org/html/rfc7231#section-6.3.3">202 Accepted</a>状态码。</p>
+<p>如果一个传输目标已经过期了，但HTTP站点仍然存在，则HTTP站点应当返回一个<a href="https://tools.ietf.org/html/rfc7231#section-6.5.9">410 Gone</a>状态码，同时发送者应当不再向该目标发送更多的通知。</p>
+<p>如果传输目标因为超过请求限制而无法处理请求，它应当返回一个<a href="https://tools.ietf.org/html/rfc6585#section-4">429 Too Many Requests</a>状态码，同时必须包含<a href="https://tools.ietf.org/html/rfc7231#section-7.1.3"><code>Retry-After</code></a>头部。发送者必须观察Retry-After的值，直到指定时间后再发送后续请求。</p>
+<p>如果传输因为通知格式不能被理解而被拒绝接收，则响应中必须包含<a href="https://tools.ietf.org/html/rfc7231#section-6.5.13">415 Unsupported Media Type</a>状态码。</p>
+<p>其它的所有错误处理情形都需要参照<a href="https://tools.ietf.org/html/rfc7231">RFC7231</a>的表述。</p>
+<h2 id="3-authorization">3. Authorization/认证<a class="headerlink" href="#3-authorization" title="Permanent link">&para;</a></h2>
+<p>传输请求必须要使用以下两种方式之一进行认证，这两种方法都依赖OAuth 2.0 Bearer 令牌 <a href="https://tools.ietf.org/html/rfc6750">RFC6750</a> 模型。</p>
+<p>传输目标必须同时支持两种认证方式。</p>
+<p>客户端可以使用任何基于令牌的认证方案。令牌可以采取任意形式，可以是标准化的令牌格式或是简单的key表达式。</p>
+<p>禁止使用任何基于挑战的认证方案。</p>
+<h3 id="31">3.1. 头部请求认证字段<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>访问令牌是在HTTP/1.1中定义的头部<a href="https://tools.ietf.org/html/rfc7235#section-4.2"><code>Authorization</code></a>字段中携带的。</p>
+<p>对于<a href="https://tools.ietf.org/html/rfc6750#section-2.1">OAuth 2.0 Bearer</a> 令牌而言，"Bearer"方案必须被使用。</p>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>POST /resource HTTP/1.1
+Host: server.example.com
+Authorization: Bearer mF_9.B5f-4.1JqM
+</code></pre></div>
+<h3 id="32-uri">3.2 URI 查询参数<a class="headerlink" href="#32-uri" title="Permanent link">&para;</a></h3>
+<p>当通过HTTP请求URI发送访问令牌时，客户需要按照"统一资源标志符 (URI): 通用句法" <a href="https://tools.ietf.org/html/rfc3986">RFC3986</a>中定义的方式，将"access_token"参数当作请求URI的查询内容进行发送。</p>
+<p>例如，客户端生成如下的HTTP请求：</p>
+<p><div class="highlight"><pre><span></span><code>POST /resource?access_token=mF_9.B5f-4.1JqM HTTP/1.1
+Host: server.example.com
+</code></pre></div>
+HTTP请求URI可能会包含其它特定的参数，此时必须正确地使用"&amp;"(ASCII code 38)字符，将"access_token"参数与其它特定的参数分割开来。</p>
+<p>例如:</p>
+<pre><code>https://server.example.com/resource?access_token=mF_9.B5f-4.1JqM&amp;p=q
+</code></pre>
+<p>使用URI查询查询参数这种形式的客户端，必须要发送一个缓存控制的头部并包含"no-store"选项。服务端成功(2XX 状态)的响应必须包含声明了"private"选项的缓存控制头部。</p>
+<p>因为URI方法天然的安全弱点(参照<a href="https://tools.ietf.org/html/rfc6750">RFC6750, Section 5</a>)，比如包含访问令牌的URI极有可能被记录，除了在无法使用"Authorization"字段的场景下，你都不应该这种方式来发送发送访问令牌。其它在<a href="https://tools.ietf.org/html/rfc6750">RFC6750</a>中告诫在此处同样适用。</p>
+<h2 id="4-abuse-protection">4. Abuse Protection/滥用保护机制<a class="headerlink" href="#4-abuse-protection" title="Permanent link">&para;</a></h2>
+<p>任何允许任意HTTP终端注册或是传输通知的系统都可能受到潜在的滥用攻击，比如一些人恶意或是无意的注册一些不期望收到请求的系统地址或是一些注册方无法被认证的地址。在极端情况下，一个实现通知的网络基础设施可能会被滥用成为DoS攻击的发起方。</p>
+<p>为了保护发送不受恶意滥用伤害，合法的传输目标需要表明它同意接收这条传输给它的通知。</p>
+<p>上述的传输同意模式是通过下面的验证握手机制实现的。握手可以在注册时执行或是被当作一个被传输前的请求在传输前执行。</p>
+<p>在这里，理解握手机制并不是为了建立一个认证上下文是尤为重要的。握手机制只是用来保护发送方不会将通知发送到并不想接收的接受者那里去。尽管在本规范中强制使用了认证模型，但这种模型无法保护那些没有实现访问控制但又不想接收不需要流量的网站，因此在这里<code>Authorization</code>是没有用的。</p>
+<p>传输目标应该支持滥用保护特性。如果一个目标端不支持此特性，发送方可能会选择不发送到这个目标端，或是以一个特别低速率去发送请求。</p>
+<h3 id="41">4.1. 验证请求<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p>验证请求使用了HTTP的<a href="https://tools.ietf.org/html/rfc7231#section-4.3.7">OPTIONS</a>方法。请求会被重定向到注册时指定的URI资源上去。</p>
+<p>有了验证请求，发送方向目标端索要发送通知的权限，验证请求可以声明一个希望的请求速率（如每分钟收到多少请求）。</p>
+<p>传输目标将会响应一个权限声明以及允许的请求速率。</p>
+<p>下面就是在验证请求中使用的头部字段。</p>
+<h4 id="412-webhook-request-origin">4.1.2. WebHook-Request-Origin<a class="headerlink" href="#412-webhook-request-origin" title="Permanent link">&para;</a></h4>
+<p>希望发送通知的发送者必须要在验证请求和请求权限中包含<code>WebHook-Request-Origin</code>字段。这个字段必须要包含一个能标识发送系统的DNS表达式（如eventemitter.example.com）。这个字段的值是用来标识所有发送方的实例，而不是一个单独主机。</p>
+<p>一旦握手和权限被承认，发送者必须在每个请求中都包含<code>WebHook-Request-Origin</code>这个字段以及它对应的值。</p>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>WebHook-Request-Origin: eventemitter.example.com
+</code></pre></div>
+<h4 id="413-webhook-">4.1.3. WebHook-请求回调<a class="headerlink" href="#413-webhook-" title="Permanent link">&para;</a></h4>
+<p><code>WebHook-Request-Callback</code>是一个可选的用来补充<code>WebHook-Request-Origin</code>的字段。它允许传输目标通过HTTPs回调的方式异步地同意权限请求。</p>
+<p>如果接收程序没有清楚地表明支持握手机制，管理员仍然可以在日志中找到回调的URL，再手动调用它来授权访问。</p>
+<p>传输目标通过发布一个给定URL的HTTPS GET 或 POST请求来授权访问。HTTP GET请求通过浏览器来手动执行。</p>
+<p>传输目标可能会在回调中包含<code>WebHook-Allowed-Rate</code>字段。</p>
+<p>这个URL没有正式的限制条件，但它应该包含一个能标识出传输目标的标识符，同时它应该包含一个密钥来使URL更加难猜，从而使第三方就无法轻松地冒充传输目标。</p>
+<p>示例:</p>
+<div class="highlight"><pre><span></span><code>WebHook-Request-Callback: https://example.com/confirm?id=12345&amp;key=...base64...
+</code></pre></div>
+<h4 id="414-webhook-">4.1.4. WebHook-请求速率<a class="headerlink" href="#414-webhook-" title="Permanent link">&para;</a></h4>
+<p>发送者可能通过<code>WebHook-Request-Rate</code>字段来向接受者请求一个合适的发送请求速率。这个值以字符串形式来表示一个大于0的整数，它代表着每分钟发送多少个请求。</p>
+<p>比如，下面的例子在索要一个每分钟发送120次请求的权限：</p>
+<div class="highlight"><pre><span></span><code>WebHook-Request-Rate: 120
+</code></pre></div>
+<h3 id="42">4.2. 验证响应<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p>当且仅在传输目标允许事件传输的情况下，它必须要通过<code>WebHook-Allowed-Origin</code> 和<code>WebHook-Allowed-Rate</code>字段来响应请求。</p>
+<p>如果传输目标选择回调的方式来授权，则它不会使用响应字段。</p>
+<p>如果传输目标不允许事件传输或是不期望收到事件但仍想处理HTTP OPTIONS 方法，当前的响应则不应该被当作批准授权，握手机制此时不应该依靠状态码来判断。如果传输目标不希望处理HTTP OPTIONS方法，它应该以405状态码来响应，就像它不支持HTTP OPTIONS一样。</p>
+<p>OPTIONS响应应该包含<a href="https://tools.ietf.org/html/rfc7231#section-7.4.1">Allow</a>字段来表明<a href="https://tools.ietf.org/html/rfc7231#section-4.3.3">POST</a>方法已经被允许了。其它方法类型可能也被允许了，但它们并不在本规范的讨论范围内。</p>
+<h4 id="421-webhook-">4.2.1. WebHook-允许源头<a class="headerlink" href="#421-webhook-" title="Permanent link">&para;</a></h4>
+<p>当传输目标同意通知事件的传输时，必须要返回<code>WebHook-Allowed-Origin</code>字段。该字段的值必须是请求中<code>WebHook-Request-Origin</code>字段中发送方的名称，或者是一个单独的星号（*）表明传输目标同意来自任意源头的通知。</p>
+<div class="highlight"><pre><span></span><code>WebHook-Allowed-Origin: eventemitter.example.com
+</code></pre></div>
+<p>或</p>
+<div class="highlight"><pre><span></span><code>WebHook-Allowed-Origin: *
+</code></pre></div>
+<h4 id="422-webhook-">4.2.2. WebHook-允许速率<a class="headerlink" href="#422-webhook-" title="Permanent link">&para;</a></h4>
+<p>当请求中包含<code>WebHook-Request-Rate</code>字段时，响应中必须包含<code>WebHook-Allowed-Rate</code>字段。其它情况下<code>WebHook-Allowed-Rate</code>字段应当被返回。</p>
+<p>本字段的值用来表示同意发送通知的速率。它可以是一个单独的星号（*）或是字符串形式来表示一个大于0的整数。星号代表对速率没有限制。整数代表着每分钟接收多少个请求。对于请求速率大于允许接收速率的情形，发送方应当考虑限流。通过拒绝请求来限流可以参考HTTP的<a href="https://tools.ietf.org/html/rfc6585#section-4">429 过多请求</a>状态码。</p>
+<p>示例： 下面的HTTP头部允许每分钟100次请求的发送速率:</p>
+<div class="highlight"><pre><span></span><code>WebHook-Allowed-Rate: 100
+</code></pre></div>
+<h2 id="5-references">5. References/引用<a class="headerlink" href="#5-references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc2119">RFC2119</a> Key words for use in RFCs to Indicate Requirement Levels</li>
+<li><a href="https://tools.ietf.org/html/rfc2818">RFC2818</a> HTTP over TLS</li>
+<li><a href="https://tools.ietf.org/html/rfc6750">RFC6750</a> The OAuth 2.0 Authorization Framework: Bearer Token Usage</li>
+<li><a href="https://tools.ietf.org/html/rfc6585">RFC6585</a> Additional HTTP Status Codes</li>
+<li><a href="https://tools.ietf.org/html/rfc7230">RFC7230</a> Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and
+  Routing</li>
+<li><a href="https://tools.ietf.org/html/rfc7231">RFC7231</a> Hypertext Transfer Protocol (HTTP/1.1): Semantics and
+  Content</li>
+<li><a href="https://tools.ietf.org/html/rfc7235">RFC7235</a> Hypertext Transfer Protocol (HTTP/1.1): Authentication</li>
+<li><a href="https://tools.ietf.org/html/rfc7540">RFC7540</a> Hypertext Transfer Protocol Version 2 (HTTP/2)</li>
+</ul>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../working-drafts/xml-format/" class="md-footer__link md-footer__link--prev" aria-label="Previous: xml格式" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              xml格式
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../proprietary-specs/" class="md-footer__link md-footer__link--next" aria-label="Next: 专有规格" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              专有规格
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      版权所有 © 2022 CloudEvent Authors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/CloudEventsIO" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/cloudevents/spec" target="_blank" rel="noopener" title="CloudEvent Community on Github" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tracking", "navigation.tabs.sticky", "navigation.top"], "search": "../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e87a5f81.min.js"></script>
+      
+    
+  </body>
+</html>
