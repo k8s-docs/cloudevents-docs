@@ -27,7 +27,7 @@ CloudEvents 是一个以通用格式来描述事件数据的标准。它提供�
 
 事件格式指定如何使用某些编码格式序列化一个 CloudEvent。
 支持那些编码且兼容 CloudEvents 的实现必须遵守相应事件格式中指定的编码规则。
-所有实现都必须支持 [JSON 格式](../../formats/json-format.md)。
+所有实现都必须支持 [JSON 格式](./formats/json-format.md)。
 
 有关规范背后的历史、开发和设计原理等更多信息，
 请参阅 CloudEvents [入门文档](primer.md)。
@@ -99,7 +99,7 @@ CloudEvents 是一个以通用格式来描述事件数据的标准。它提供�
 #### Event Format/事件格式
 
 一个事件格式会指定如何将 CloudEvent 序列化为字节序列。
-独立事件格式（例如 [JSON 格式](../../formats/json-format.md)）指定独立于任何协议或存储介质的序列化。
+独立事件格式（例如 [JSON 格式](./formats/json-format.md)）指定独立于任何协议或存储介质的序列化。
 协议绑定可以定义依赖于协议的格式。
 
 #### Message/消息
@@ -156,8 +156,7 @@ CloudEvent 属性不能使用 `data` 命名；因为它是为某些事件格式�
     JSON 数字的整数部分
 - `String` - 允许的 Unicode 字符序列。 不允许使用以下字符：
   - 范围 U+0000-U+001F 和 U+007F-U+009F（包含首尾）中的“控制字符”，
-    因为大多数没有商定的含义，还有一些，例如 U+000A（换行符）， 在如 HTTP 请求头之类的上下文中不可用。
-    -[被 Unicode 标识为非字符的](http://www.unicode.org/faq/private_use.html#noncharacters)
+    因为大多数没有商定的含义，还有一些，例如 U+000A（换行符）， 在如 HTTP 请求头之类的上下文中不可用。 -[被 Unicode 标识为非字符的](http://www.unicode.org/faq/private_use.html#noncharacters)
     代码点。
   - 被 Unicode 标识为代理项的代码点, 范围 U+D800-U+DBFF 和 U+DC00-U+DFFF（包含首尾）
     , 除非被合理的用作代理对. 因此（在 JSON 符号中）
@@ -187,7 +186,7 @@ CloudEvent 属性不能使用 `data` 命名；因为它是为某些事件格式�
 
 CloudEvents 协议绑定或事件格式实现同样必须能够在规范字符串编码与协议元数据字段中的对应数据类型之间进行转换。
 
-`Timestamp`  类型的属性值确实可能以字符串形式路由通过多个跃点，
+`Timestamp` 类型的属性值确实可能以字符串形式路由通过多个跃点，
 并且仅在生产者和最终消费者处实现为本地运行时/语言类型。
 `Timestamp` 类型也可以作为本地协议类型路由，
 并且可以在生产者和消费者端映射到/从各自的语言/运行时类型，但永远不会转为字符串格式。
@@ -223,7 +222,7 @@ CloudEvents 协议绑定或事件格式实现同样必须能够在规范字符�
 
   应用程序可以为每个不同的生产者分配一个唯一的 `source`，
   这使得生成唯一 ID 变得容易，因为没有其他生产者将拥有相同的来源。
-  应用程序可以使用 UUIDs、URNs、DNS权威机构或特定于应用程序的方案来创建唯一的 `source` 标识符。
+  应用程序可以使用 UUIDs、URNs、DNS 权威机构或特定于应用程序的方案来创建唯一的 `source` 标识符。
 
   一个来源可以包括多个生产者。
   在这种情况下，生产者必须协作以确保每个不同事件的 `source` + `id` 都是唯一的。
@@ -249,9 +248,10 @@ CloudEvents 协议绑定或事件格式实现同样必须能够在规范字符�
 - 描述: 事件使用的 CloudEvents 规范的版本。
   这让解释上下文环境更容易。
   当引用这个版本的规范时，兼容的事件生产者必须使用 `1.0` 的值。
-  
+
 目前，此属性仅包含“主要”和“次要”版本号。这允许对规范进行“补丁”更改，而无需更改序列化中此属性的值。
 注意：对于“候选发布”版本，后缀可能用于测试目的。
+
 - 约束条件:
   - 必要的
   - 必须是非空字符串
@@ -260,10 +260,8 @@ CloudEvents 协议绑定或事件格式实现同样必须能够在规范字符�
 
 - 类型: `String`
 - 描述: 该属性包含一个值，描述与原始事件相关的事件类型。
-  该属性通常用于路由、可观察性、策略实施等。其格式是生产者定义的，可能包括诸如 `type` 版本之类的信息。
-  -从
+  该属性通常用于路由、可观察性、策略实施等。其格式是生产者定义的，可能包括诸如 `type` 版本之类的信息。 -从
   [入门文档-属性版本控制](primer.md#versioning-of-cloudevents属性版本控制) 中获得更多信息。
-  
 - 约束条件:
   - 必要的
   - 必须是非空字符串
@@ -276,24 +274,23 @@ CloudEvents 协议绑定或事件格式实现同样必须能够在规范字符�
 
 下列属性在 CloudEvents 中是可选的。在[符号约定](#notational-conventions符号约定) 中查看更多 OPTIONAL\ 可选定义的信息。
 
-
-#### datacontenttype/data内容类型
+#### datacontenttype/data 内容类型
 
 - 类型: `String` [RFC 2046](https://tools.ietf.org/html/rfc2046)
 - 描述: `data` 值的内容类型。 此属性使 `data` 能够承载任何类型的内容，
   因此格式和编码可能与所选事件格式的不同。
-  例如，使用 [JSON envelope](../../formats/json-format.md#3-envelope)格式呈现的事件可能在数据中携带 XML 的有效负载，这个属性可以用来通知消费者
+  例如，使用 [JSON envelope](./formats/json-format.md#3-envelope)格式呈现的事件可能在数据中携带 XML 的有效负载，这个属性可以用来通知消费者
   设置"application/xml"。
   关于 `data` 内容如何提供不同的 `datacontenttype` 的值的规则在事件格式规范中定义。
-  例如，JSON 事件格式定义了 [3.1 节](../../formats/json-format.md#31-handling-of-data)中的关系。
+  例如，JSON 事件格式定义了 [3.1 节](./formats/json-format.md#31-handling-of-data)中的关系。
 
   对于某些二进制模式协议绑定，此字段直接能映射到相应协议的内容类型的元数据属性上。
   二进制模式和内容类型元数据映射的规范规则可以在各自的协议中找到。
 
   在某些事件格式中，可以省略 `datacontenttype` 属性。
-  例如，如果 JSON 格式的事件没有 `datacontenttype`  属性，
+  例如，如果 JSON 格式的事件没有 `datacontenttype` 属性，
   则表示该 `data` 是符合“application/json”媒体类型的 JSON 值。
-  换句话说：一个没有 `datacontenttype`  的 JSON 格式的事件完全等同于
+  换句话说：一个没有 `datacontenttype` 的 JSON 格式的事件完全等同于
   一个带有 `datacontenttype="application/json"` 的事件。
 
   当将没有 `datacontenttype` 属性的事件消息转换为不同的格式或协议绑定时，
@@ -325,7 +322,7 @@ CloudEvents 协议绑定或事件格式实现同样必须能够在规范字符�
   则单独的 `source` 标识符可能不足以作为任何指定事件的限定符。
 
 当中间件无法解释 `data` 内容时，在上下文元数据中识别事件的主题（相对于仅仅在 `data` 负载中）在通过订阅过滤场景中特别有用。
-在上面的示例中，订阅者可能仅仅对blobs中名字以 `.jpg` 或者 `.jpeg` 结尾和可以为该事件子集构建一个简单有效的字符串后缀过滤器的 `subject` 属性感兴趣。
+在上面的示例中，订阅者可能仅仅对 blobs 中名字以 `.jpg` 或者 `.jpeg` 结尾和可以为该事件子集构建一个简单有效的字符串后缀过滤器的 `subject` 属性感兴趣。
 
 - 约束条件:
   - 可选的
@@ -441,7 +438,6 @@ CloudEvents 也可能直接被路由到消费者，如嵌入式设备，
   应该采用协议级别的安全性机制来确保 CloudEvents 完成可信和安全的交换。
 
 # Example/示例
-
 
 以下示例显示了一个序列化为 JSON 的 CloudEvent：
 

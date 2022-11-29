@@ -184,7 +184,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../index.md" class="md-tabs__link">
+    <a href="../.." class="md-tabs__link">
       主页
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../dataref/" class="md-tabs__link md-tabs__link--active">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
         扩展
       </a>
     </li>
@@ -345,7 +345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../index.md" class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         主页
       </a>
     </li>
@@ -977,6 +977,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        扩展属性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dataref/" class="md-nav__link">
         Dataref
       </a>
@@ -1000,9 +1014,67 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          分布式跟踪
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         分布式跟踪
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traceparent" class="md-nav__link">
+    traceparent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tracestate" class="md-nav__link">
+    tracestate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-distributed-tracing-extension" class="md-nav__link">
+    Using the Distributed Tracing Extension
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1167,6 +1239,48 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traceparent" class="md-nav__link">
+    traceparent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tracestate" class="md-nav__link">
+    tracestate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-distributed-tracing-extension" class="md-nav__link">
+    Using the Distributed Tracing Extension
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1184,9 +1298,50 @@
 
 
 <h1 id="distributed-tracing-extension">Distributed Tracing extension<a class="headerlink" href="#distributed-tracing-extension" title="Permanent link">&para;</a></h1>
-<p>本文档尚未被翻译，请先阅读英文<a href="../../../extensions/distributed-tracing.md">原版文档</a> 。</p>
-<p>如果您迫切地需要此文档的中文翻译，请<a href="https://github.com/cloudevents/spec/issues">提交一个issue</a> ，
-我们会尽快安排专人进行翻译。</p>
+<p>This extension embeds context from
+<a href="https://w3c.github.io/trace-context/">Distributed Tracing</a> so that distributed
+systems can include traces that span an event-driven system. This extension is
+meant to contain historical data of the parent trace, in order to diagnose
+eventual failures of the system through tracing platforms like Jaeger, Zipkin,
+etc.</p>
+<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
+<h4 id="traceparent">traceparent<a class="headerlink" href="#traceparent" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Type: <code>String</code></li>
+<li>Description: Contains a version, trace ID, span ID, and trace options as
+  defined in <a href="https://w3c.github.io/trace-context/#traceparent-header">section 3.2</a></li>
+<li>Constraints</li>
+<li>REQUIRED</li>
+</ul>
+<h4 id="tracestate">tracestate<a class="headerlink" href="#tracestate" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Type: <code>String</code></li>
+<li>Description: a comma-delimited list of key-value pairs, defined by
+  <a href="https://w3c.github.io/trace-context/#tracestate-header">section 3.3</a>.</li>
+<li>Constraints</li>
+<li>OPTIONAL</li>
+</ul>
+<h2 id="using-the-distributed-tracing-extension">Using the Distributed Tracing Extension<a class="headerlink" href="#using-the-distributed-tracing-extension" title="Permanent link">&para;</a></h2>
+<p>The Distributed Tracing Extension is not intended to replace the protocol specific headers for tracing, 
+like the ones described in <a href="https://w3c.github.io/trace-context/">W3C Trace Context</a> for HTTP.</p>
+<p>Given a single hop event transmission (from sink to source directly), the Distributed Tracing Extension, 
+if used, MUST carry the same trace information contained in protocol specific tracing headers.</p>
+<p>Given a multi hop event transmission, the Distributed Tracing Extension, if used, MUST 
+carry the trace information of the starting trace of the transmission. 
+In other words, it MUST NOT carry trace information of each individual hop, since this information is usually 
+carried using protocol specific headers, understood by tools like <a href="https://opentelemetry.io/">OpenTelemetry</a>.</p>
+<p>Middleware between the source and the sink of the event could eventually add a Distributed Tracing Extension
+if the source didn't include any, in order to provide to the sink the starting trace of the transmission.</p>
+<p>An example with HTTP:</p>
+<div class="highlight"><pre><span></span><code>CURL -X POST example/webhook.json <span class="se">\</span>
+-H <span class="s1">&#39;ce-id: 1&#39;</span> <span class="se">\</span>
+-H <span class="s1">&#39;ce-specversion: 1.0&#39;</span> <span class="se">\</span>
+-H <span class="s1">&#39;ce-type: example&#39;</span> <span class="se">\</span>
+-H <span class="s1">&#39;ce-source: http://localhost&#39;</span> <span class="se">\</span>
+-H <span class="s1">&#39;ce-traceparent:  00-0af7651916cd43dd8448eb211c80319c-b9c7c989f97918e1-01&#39;</span> <span class="se">\</span>
+-H <span class="s1">&#39;traceparent:  00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01&#39;</span> <span class="se">\</span>
+-H <span class="err">&#39;</span>tracestate: <span class="nv">rojo</span><span class="o">=</span><span class="m">00</span>-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01,congo<span class="o">=</span>lZWRzIHRoNhcm5hbCBwbGVhc3VyZS4<span class="sb">`</span>
+</code></pre></div>
 
               
             </article>

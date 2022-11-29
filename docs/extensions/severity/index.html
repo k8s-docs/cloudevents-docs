@@ -184,7 +184,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../index.md" class="md-tabs__link">
+    <a href="../.." class="md-tabs__link">
       主页
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../dataref/" class="md-tabs__link md-tabs__link--active">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
         扩展
       </a>
     </li>
@@ -345,7 +345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../index.md" class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         主页
       </a>
     </li>
@@ -977,6 +977,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        扩展属性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dataref/" class="md-nav__link">
         Dataref
       </a>
@@ -1056,9 +1070,67 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          严重程度扩展
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         严重程度扩展
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    Abstract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#severitytext" class="md-nav__link">
+    severitytext
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#severitynumber" class="md-nav__link">
+    severitynumber
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1167,6 +1239,48 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    Abstract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#severitytext" class="md-nav__link">
+    severitytext
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#severitynumber" class="md-nav__link">
+    severitynumber
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1184,9 +1298,64 @@
 
 
 <h1 id="severity-extension">Severity Extension<a class="headerlink" href="#severity-extension" title="Permanent link">&para;</a></h1>
-<p>本文档尚未被翻译，请先阅读英文<a href="../../../extensions/severity.md">原版文档</a> 。</p>
-<p>如果您迫切地需要此文档的中文翻译，请<a href="https://github.com/cloudevents/spec/issues">提交一个issue</a> ，
-我们会尽快安排专人进行翻译。</p>
+<h2 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">&para;</a></h2>
+<p>This extension defines attributes that MAY be included within a CloudEvent
+to describe the "severity" or "level" of an event in relation to other events.</p>
+<p>Often systems produce events in form of logs, and these types of events usually share
+a common concept of "log-level". This extension aims to provide a standard way for 
+describing this property in a language agnostic form. </p>
+<p>Sharing a common way to describe severity of events allows for better monitoring 
+systems, tooling and general log consumption.</p>
+<p>This extension is heavily inspired by the <a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md#severity-fields">OpenTelemetry Severity Fields</a>
+and is intended to interoperate with them. </p>
+<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
+<p>When both attributes are used, all <code>severitytext</code> values which MAY be produced
+in a context of a <code>source</code> SHOULD be in a 
+<a href="https://en.wikipedia.org/wiki/Bijection">one-to-one and onto</a> relationship with all
+<code>severitynumber</code> values which MAY be produced by the same <code>source</code>.</p>
+<h3 id="severitytext">severitytext<a class="headerlink" href="#severitytext" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Type: <code>String</code></li>
+<li>Description: Human readable text representation of the event severity (also known as 
+  log level name). </li>
+</ul>
+<p>This is the original string representation of the severity as it is known 
+  at the source. If this field is missing and <code>severitynumber</code> is present then 
+  the <a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md#displaying-severity">short name</a>
+  that corresponds to the <code>severitynumber</code> MAY be used as a substitution. </p>
+<ul>
+<li>Constraints</li>
+<li>OPTIONAL</li>
+<li>if present, MUST be a non-empty string</li>
+<li>SHOULD be uppercase</li>
+<li>RECOMMENDED values are <code>TRACE</code>, <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code>, and <code>FATAL</code>, 
+    but others MAY be used.</li>
+</ul>
+<h3 id="severitynumber">severitynumber<a class="headerlink" href="#severitynumber" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Type: <code>Integer</code></li>
+<li>Description: Numerical representation of the event severity (also known as 
+  log level number), normalized to values described in this document. </li>
+</ul>
+<p>Severity of all values MUST be numerically ascending from least-saver
+  to most-saver. An event with a lower numerical value (such as a debug event) MUST 
+  be of less sever than an event with  a higher numerical value (such as an error 
+  event).</p>
+<p>See OpenTelemetry for <a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md#field-severitynumber">exact severity number meanings</a></p>
+<ul>
+<li>Constraints</li>
+<li>REQUIRED</li>
+<li>if present, MUST NOT be negative</li>
+</ul>
+<h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md#mapping-of-severitynumber">Mapping of SeverityNumber</a></li>
+<li><a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md#reverse-mapping">Reverse Mapping</a></li>
+<li><a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md#error-semantics">Error Semantics</a></li>
+<li><a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md#displaying-severity">Displaying Severity</a></li>
+<li><a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md#comparing-severity">Comparing Severity</a></li>
+<li><a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/logs/data-model.md#appendix-a-example-mappings">Mapping of existing log formats to severity levels</a></li>
+</ul>
 
               
             </article>

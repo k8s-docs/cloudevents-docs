@@ -184,7 +184,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../index.md" class="md-tabs__link">
+    <a href=".." class="md-tabs__link">
       主页
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../extensions/dataref/" class="md-tabs__link">
+      <a href="../extensions/" class="md-tabs__link">
         扩展
       </a>
     </li>
@@ -345,7 +345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../index.md" class="md-nav__link">
+      <a href=".." class="md-nav__link">
         主页
       </a>
     </li>
@@ -632,7 +632,7 @@
         
           <li class="md-nav__item">
   <a href="#datacontenttypedata" class="md-nav__link">
-    datacontenttype/data内容类型
+    datacontenttype/data 内容类型
   </a>
   
 </li>
@@ -1285,6 +1285,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../extensions/" class="md-nav__link">
+        扩展属性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../extensions/dataref/" class="md-nav__link">
         Dataref
       </a>
@@ -1682,7 +1696,7 @@
         
           <li class="md-nav__item">
   <a href="#datacontenttypedata" class="md-nav__link">
-    datacontenttype/data内容类型
+    datacontenttype/data 内容类型
   </a>
   
 </li>
@@ -1785,7 +1799,7 @@
 <p>CloudEvents 是一个以通用格式来描述事件数据的标准。它提供了事件在服务、平台和系统中的互操作性。</p>
 <p>事件格式指定如何使用某些编码格式序列化一个 CloudEvent。
 支持那些编码且兼容 CloudEvents 的实现必须遵守相应事件格式中指定的编码规则。
-所有实现都必须支持 <a href="../../formats/json-format.md">JSON 格式</a>。</p>
+所有实现都必须支持 <a href="../formats/json-format/">JSON 格式</a>。</p>
 <p>有关规范背后的历史、开发和设计原理等更多信息，
 请参阅 CloudEvents <a href="../primer/">入门文档</a>。</p>
 <h2 id="notations-and-terminology">Notations and Terminology/符号和术语<a class="headerlink" href="#notations-and-terminology" title="Permanent link">&para;</a></h2>
@@ -1832,7 +1846,7 @@
 有关更多信息，请参阅<a href="#event-data事件数据">事件数据</a>部分。</p>
 <h4 id="event-format">Event Format/事件格式<a class="headerlink" href="#event-format" title="Permanent link">&para;</a></h4>
 <p>一个事件格式会指定如何将 CloudEvent 序列化为字节序列。
-独立事件格式（例如 <a href="../../formats/json-format.md">JSON 格式</a>）指定独立于任何协议或存储介质的序列化。
+独立事件格式（例如 <a href="../formats/json-format/">JSON 格式</a>）指定独立于任何协议或存储介质的序列化。
 协议绑定可以定义依赖于协议的格式。</p>
 <h4 id="message">Message/消息<a class="headerlink" href="#message" title="Permanent link">&para;</a></h4>
 <p>事件通过消息从源传输到目标。
@@ -1873,8 +1887,7 @@
     JSON 数字的整数部分</li>
 <li><code>String</code> - 允许的 Unicode 字符序列。 不允许使用以下字符：</li>
 <li>范围 U+0000-U+001F 和 U+007F-U+009F（包含首尾）中的“控制字符”，
-    因为大多数没有商定的含义，还有一些，例如 U+000A（换行符）， 在如 HTTP 请求头之类的上下文中不可用。
-    -<a href="http://www.unicode.org/faq/private_use.html#noncharacters">被 Unicode 标识为非字符的</a>
+    因为大多数没有商定的含义，还有一些，例如 U+000A（换行符）， 在如 HTTP 请求头之类的上下文中不可用。 -<a href="http://www.unicode.org/faq/private_use.html#noncharacters">被 Unicode 标识为非字符的</a>
     代码点。</li>
 <li>被 Unicode 标识为代理项的代码点, 范围 U+D800-U+DBFF 和 U+DC00-U+DFFF（包含首尾）
     , 除非被合理的用作代理对. 因此（在 JSON 符号中）
@@ -1900,7 +1913,7 @@
 <p>例如，在给定的实现中，<code>time</code> 属性可能由编程语言的本地时间类型表示，但它必须是可设置提供 RFC3339 字符串的，
 并且当映射到 HTTP 消息头时，它必须可转换为 RFC3339 字符串。</p>
 <p>CloudEvents 协议绑定或事件格式实现同样必须能够在规范字符串编码与协议元数据字段中的对应数据类型之间进行转换。</p>
-<p><code>Timestamp</code>  类型的属性值确实可能以字符串形式路由通过多个跃点，
+<p><code>Timestamp</code> 类型的属性值确实可能以字符串形式路由通过多个跃点，
 并且仅在生产者和最终消费者处实现为本地运行时/语言类型。
 <code>Timestamp</code> 类型也可以作为本地协议类型路由，
 并且可以在生产者和消费者端映射到/从各自的语言/运行时类型，但永远不会转为字符串格式。</p>
@@ -1931,7 +1944,7 @@
 <p>生产者必须确保每个不同事件的 <code>source</code> + <code>id</code> 是唯一的。</p>
 <p>应用程序可以为每个不同的生产者分配一个唯一的 <code>source</code>，
   这使得生成唯一 ID 变得容易，因为没有其他生产者将拥有相同的来源。
-  应用程序可以使用 UUIDs、URNs、DNS权威机构或特定于应用程序的方案来创建唯一的 <code>source</code> 标识符。</p>
+  应用程序可以使用 UUIDs、URNs、DNS 权威机构或特定于应用程序的方案来创建唯一的 <code>source</code> 标识符。</p>
 <p>一个来源可以包括多个生产者。
   在这种情况下，生产者必须协作以确保每个不同事件的 <code>source</code> + <code>id</code> 都是唯一的。</p>
 <ul>
@@ -1964,22 +1977,19 @@
   当引用这个版本的规范时，兼容的事件生产者必须使用 <code>1.0</code> 的值。</li>
 </ul>
 <p>目前，此属性仅包含“主要”和“次要”版本号。这允许对规范进行“补丁”更改，而无需更改序列化中此属性的值。
-注意：对于“候选发布”版本，后缀可能用于测试目的。
-- 约束条件:
-  - 必要的
-  - 必须是非空字符串</p>
+注意：对于“候选发布”版本，后缀可能用于测试目的。</p>
+<ul>
+<li>约束条件:</li>
+<li>必要的</li>
+<li>必须是非空字符串</li>
+</ul>
 <h4 id="type">type/类型<a class="headerlink" href="#type" title="Permanent link">&para;</a></h4>
 <ul>
 <li>类型: <code>String</code></li>
-<li>
-<p>描述: 该属性包含一个值，描述与原始事件相关的事件类型。
-  该属性通常用于路由、可观察性、策略实施等。其格式是生产者定义的，可能包括诸如 <code>type</code> 版本之类的信息。
-  -从
-  <a href="../primer/#versioning-of-cloudevents属性版本控制">入门文档-属性版本控制</a> 中获得更多信息。</p>
-</li>
-<li>
-<p>约束条件:</p>
-</li>
+<li>描述: 该属性包含一个值，描述与原始事件相关的事件类型。
+  该属性通常用于路由、可观察性、策略实施等。其格式是生产者定义的，可能包括诸如 <code>type</code> 版本之类的信息。 -从
+  <a href="../primer/#versioning-of-cloudevents属性版本控制">入门文档-属性版本控制</a> 中获得更多信息。</li>
+<li>约束条件:</li>
 <li>必要的</li>
 <li>必须是非空字符串</li>
 <li>应该以反向 DNS 名称作为前缀。该前缀域表明了定义此事件类型语义的组织。</li>
@@ -1989,22 +1999,22 @@
 </ul>
 <h3 id="optional-attributes">OPTIONAL Attributes/可选属性<a class="headerlink" href="#optional-attributes" title="Permanent link">&para;</a></h3>
 <p>下列属性在 CloudEvents 中是可选的。在<a href="#notational-conventions符号约定">符号约定</a> 中查看更多 OPTIONAL 可选定义的信息。</p>
-<h4 id="datacontenttypedata">datacontenttype/data内容类型<a class="headerlink" href="#datacontenttypedata" title="Permanent link">&para;</a></h4>
+<h4 id="datacontenttypedata">datacontenttype/data 内容类型<a class="headerlink" href="#datacontenttypedata" title="Permanent link">&para;</a></h4>
 <ul>
 <li>类型: <code>String</code> <a href="https://tools.ietf.org/html/rfc2046">RFC 2046</a></li>
 <li>描述: <code>data</code> 值的内容类型。 此属性使 <code>data</code> 能够承载任何类型的内容，
   因此格式和编码可能与所选事件格式的不同。
-  例如，使用 <a href="../../formats/json-format.md#3-envelope">JSON envelope</a>格式呈现的事件可能在数据中携带 XML 的有效负载，这个属性可以用来通知消费者
+  例如，使用 <a href="../formats/json-format/#3-envelope">JSON envelope</a>格式呈现的事件可能在数据中携带 XML 的有效负载，这个属性可以用来通知消费者
   设置"application/xml"。
   关于 <code>data</code> 内容如何提供不同的 <code>datacontenttype</code> 的值的规则在事件格式规范中定义。
-  例如，JSON 事件格式定义了 <a href="../../formats/json-format.md#31-handling-of-data">3.1 节</a>中的关系。</li>
+  例如，JSON 事件格式定义了 <a href="../formats/json-format/#31-handling-of-data">3.1 节</a>中的关系。</li>
 </ul>
 <p>对于某些二进制模式协议绑定，此字段直接能映射到相应协议的内容类型的元数据属性上。
   二进制模式和内容类型元数据映射的规范规则可以在各自的协议中找到。</p>
 <p>在某些事件格式中，可以省略 <code>datacontenttype</code> 属性。
-  例如，如果 JSON 格式的事件没有 <code>datacontenttype</code>  属性，
+  例如，如果 JSON 格式的事件没有 <code>datacontenttype</code> 属性，
   则表示该 <code>data</code> 是符合“application/json”媒体类型的 JSON 值。
-  换句话说：一个没有 <code>datacontenttype</code>  的 JSON 格式的事件完全等同于
+  换句话说：一个没有 <code>datacontenttype</code> 的 JSON 格式的事件完全等同于
   一个带有 <code>datacontenttype="application/json"</code> 的事件。</p>
 <p>当将没有 <code>datacontenttype</code> 属性的事件消息转换为不同的格式或协议绑定时，
   目标 <code>datacontenttype</code> 应该显式设置为事件源的隐含或默认的 <code>datacontenttype</code>。</p>
@@ -2035,7 +2045,7 @@
   则单独的 <code>source</code> 标识符可能不足以作为任何指定事件的限定符。</li>
 </ul>
 <p>当中间件无法解释 <code>data</code> 内容时，在上下文元数据中识别事件的主题（相对于仅仅在 <code>data</code> 负载中）在通过订阅过滤场景中特别有用。
-在上面的示例中，订阅者可能仅仅对blobs中名字以 <code>.jpg</code> 或者 <code>.jpeg</code> 结尾和可以为该事件子集构建一个简单有效的字符串后缀过滤器的 <code>subject</code> 属性感兴趣。</p>
+在上面的示例中，订阅者可能仅仅对 blobs 中名字以 <code>.jpg</code> 或者 <code>.jpeg</code> 结尾和可以为该事件子集构建一个简单有效的字符串后缀过滤器的 <code>subject</code> 属性感兴趣。</p>
 <ul>
 <li>约束条件:</li>
 <li>可选的</li>
@@ -2076,7 +2086,7 @@
 查阅有关扩展使用和定义等相关信息。</p>
 <p>扩展的定义应该完全定义属性的方方面面——例如 它的名称、类型、语义含义和可能的值。
 新的扩展定义应该使用一个足够描述性的名称来减少与其他扩展的名称冲突的机会。
-特别是，扩展作者应该检查<a href="../documented-extensions/">扩展文件</a>中已知的扩展集——不仅是可能的名称冲突，还有相同目的冲突的扩展。</p>
+特别是，扩展作者应该检查<a href="documented-extensions.md">扩展文件</a>中已知的扩展集——不仅是可能的名称冲突，还有相同目的冲突的扩展。</p>
 <p>许多协议为发送者提供了包含额外元数据的能力，例如作为 HTTP 请求头。
 虽然没有强制要求 CloudEvents 接受者处理和传递它们，
 但建议接受者通过某种机制进行处理，以明确它们是非 CloudEvents 的元数据。</p>
@@ -2169,6 +2179,21 @@ CloudEvents 也可能直接被路由到消费者，如嵌入式设备，
         <footer class="md-footer">
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: 主页" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              主页
+            </div>
+          </div>
+        </a>
       
       
         

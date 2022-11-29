@@ -184,7 +184,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../index.md" class="md-tabs__link">
+    <a href="../.." class="md-tabs__link">
       主页
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../extensions/dataref/" class="md-tabs__link">
+      <a href="../../extensions/" class="md-tabs__link">
         扩展
       </a>
     </li>
@@ -345,7 +345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../index.md" class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         主页
       </a>
     </li>
@@ -778,9 +778,54 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          aws-sns
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         aws-sns
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#subscription-confirmation" class="md-nav__link">
+    Subscription Confirmation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notification" class="md-nav__link">
+    Notification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unsubscribe-confirmation" class="md-nav__link">
+    Unsubscribe Confirmation
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -987,6 +1032,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../extensions/" class="md-nav__link">
+        扩展属性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../extensions/dataref/" class="md-nav__link">
         Dataref
       </a>
@@ -1167,6 +1226,35 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#subscription-confirmation" class="md-nav__link">
+    Subscription Confirmation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notification" class="md-nav__link">
+    Notification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unsubscribe-confirmation" class="md-nav__link">
+    Unsubscribe Confirmation
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1184,9 +1272,152 @@
 
 
 <h1 id="amazon-simple-notification-service-cloudevents-adapter">Amazon Simple Notification Service CloudEvents Adapter<a class="headerlink" href="#amazon-simple-notification-service-cloudevents-adapter" title="Permanent link">&para;</a></h1>
-<p>本文档尚未被翻译，请先阅读英文<a href="../../../adapters/aws-sns.md">原版文档</a> 。</p>
-<p>如果您迫切地需要此文档的中文翻译，请<a href="https://github.com/cloudevents/spec/issues">提交一个issue</a> ，
-我们会尽快安排专人进行翻译。</p>
+<p>This document describes how to convert <a href="https://docs.aws.amazon.com/sns/latest/dg/sns-message-and-json-formats.html">AWS SNS messages</a> into CloudEvents.</p>
+<p>Amazon SNS MAY send a subscription confirmation, notification, or unsubscribe confirmation 
+message to your HTTP/HTTPS endpoints.</p>
+<p>Each section below describes how to determine the CloudEvents attributes
+based on the specified type of SNS messages.</p>
+<h3 id="subscription-confirmation">Subscription Confirmation<a class="headerlink" href="#subscription-confirmation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">CloudEvents Attribute</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>id</code></td>
+<td align="left">"x-amz-sns-message-id" value</td>
+</tr>
+<tr>
+<td align="left"><code>source</code></td>
+<td align="left">"x-amz-sns-topic-arn" value</td>
+</tr>
+<tr>
+<td align="left"><code>specversion</code></td>
+<td align="left"><code>1.0</code></td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left"><code>com.amazonaws.sns.</code> + "x-amz-sns-message-type" value</td>
+</tr>
+<tr>
+<td align="left"><code>datacontenttype</code></td>
+<td align="left"><code>application/json</code></td>
+</tr>
+<tr>
+<td align="left"><code>dataschema</code></td>
+<td align="left">Omit</td>
+</tr>
+<tr>
+<td align="left"><code>subject</code></td>
+<td align="left">Omit</td>
+</tr>
+<tr>
+<td align="left"><code>time</code></td>
+<td align="left">"Timestamp" value</td>
+</tr>
+<tr>
+<td align="left"><code>data</code></td>
+<td align="left">HTTP payload</td>
+</tr>
+</tbody>
+</table>
+<h3 id="notification">Notification<a class="headerlink" href="#notification" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">CloudEvents Attribute</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>id</code></td>
+<td align="left">"x-amz-sns-message-id" value</td>
+</tr>
+<tr>
+<td align="left"><code>source</code></td>
+<td align="left">"x-amz-sns-subscription-arn" value</td>
+</tr>
+<tr>
+<td align="left"><code>specversion</code></td>
+<td align="left"><code>1.0</code></td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left"><code>com.amazonaws.sns.</code> + "x-amz-sns-message-type" value</td>
+</tr>
+<tr>
+<td align="left"><code>datacontenttype</code></td>
+<td align="left"><code>application/json</code></td>
+</tr>
+<tr>
+<td align="left"><code>dataschema</code></td>
+<td align="left">Omit</td>
+</tr>
+<tr>
+<td align="left"><code>subject</code></td>
+<td align="left">"Subject" value (if present)</td>
+</tr>
+<tr>
+<td align="left"><code>time</code></td>
+<td align="left">"Timestamp" value</td>
+</tr>
+<tr>
+<td align="left"><code>data</code></td>
+<td align="left">HTTP payload</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unsubscribe-confirmation">Unsubscribe Confirmation<a class="headerlink" href="#unsubscribe-confirmation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">CloudEvents Attribute</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>id</code></td>
+<td align="left">"x-amz-sns-message-id" value</td>
+</tr>
+<tr>
+<td align="left"><code>source</code></td>
+<td align="left">"x-amz-sns-subscription-arn" value</td>
+</tr>
+<tr>
+<td align="left"><code>specversion</code></td>
+<td align="left"><code>1.0</code></td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left"><code>com.amazonaws.sns.</code> + "x-amz-sns-message-type" value</td>
+</tr>
+<tr>
+<td align="left"><code>datacontenttype</code></td>
+<td align="left"><code>application/json</code></td>
+</tr>
+<tr>
+<td align="left"><code>dataschema</code></td>
+<td align="left">Omit</td>
+</tr>
+<tr>
+<td align="left"><code>subject</code></td>
+<td align="left">Omit</td>
+</tr>
+<tr>
+<td align="left"><code>time</code></td>
+<td align="left">"Timestamp" value</td>
+</tr>
+<tr>
+<td align="left"><code>data</code></td>
+<td align="left">HTTP payload</td>
+</tr>
+</tbody>
+</table>
 
               
             </article>

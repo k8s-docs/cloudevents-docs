@@ -184,7 +184,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../index.md" class="md-tabs__link">
+    <a href="../.." class="md-tabs__link">
       主页
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../dataref/" class="md-tabs__link md-tabs__link--active">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
         扩展
       </a>
     </li>
@@ -345,7 +345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../index.md" class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         主页
       </a>
     </li>
@@ -977,6 +977,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        扩展属性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dataref/" class="md-nav__link">
         Dataref
       </a>
@@ -1014,9 +1028,53 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          扩展分区
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         扩展分区
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#partitionkey" class="md-nav__link">
+    partitionkey
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1167,6 +1225,34 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#partitionkey" class="md-nav__link">
+    partitionkey
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1184,9 +1270,30 @@
 
 
 <h1 id="partitioning-extension">Partitioning extension<a class="headerlink" href="#partitioning-extension" title="Permanent link">&para;</a></h1>
-<p>本文档尚未被翻译，请先阅读英文<a href="../../../extensions/partitioning.md">原版文档</a> 。</p>
-<p>如果您迫切地需要此文档的中文翻译，请<a href="https://github.com/cloudevents/spec/issues">提交一个issue</a> ，
-我们会尽快安排专人进行翻译。</p>
+<p>This extension defines an attribute for use by message brokers and their clients
+that support partitioning of events, typically for the purpose of scaling.</p>
+<p>Often in large scale systems, during times of heavy load, events being received
+need to be partitioned into multiple buckets so that each bucket can be
+separately processed in order for the system to manage the incoming load. A
+partitioning key can be used to determine which bucket each event goes into. The
+entity sending the events can ensure that events that need to be placed into the
+same bucket are done so by using the same partition key on those events.</p>
+<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
+<h3 id="partitionkey">partitionkey<a class="headerlink" href="#partitionkey" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Type: <code>String</code></li>
+<li>Description: A partition key for the event, typically for the purposes of
+  defining a causal relationship/grouping between multiple events. In cases
+  where the CloudEvent is delivered to an event consumer via multiple hops,
+  it is possible that the value of this attribute might change, or even be
+  removed, due to protocol semantics or business processing logic within
+  each hop.</li>
+<li>Examples:</li>
+<li>The ID of the entity that the event is associated with</li>
+<li>Constraints:</li>
+<li>REQUIRED</li>
+<li>MUST be a non-empty string</li>
+</ul>
 
               
             </article>

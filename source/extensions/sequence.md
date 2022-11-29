@@ -1,6 +1,34 @@
 # Sequence
 
-本文档尚未被翻译，请先阅读英文[原版文档](../../../extensions/sequence.md) 。
+This extension defines an attribute that can be included within a CloudEvent
+to describe the position of an event in the ordered sequence of events produced
+by a unique event source.
 
-如果您迫切地需要此文档的中文翻译，请[提交一个issue](https://github.com/cloudevents/spec/issues) ，
-我们会尽快安排专人进行翻译。
+The `sequence` attribute represents the value of this event's order in the
+stream of events. This specification does not define the meaning or set of
+valid value of this attribute, rather it only mandates that the value be
+a string that can be lexicographically compared to other `sequence` values
+to determine which one comes first. The `sequence` with a lower lexicographical
+value comes first.
+
+Produces and consumers are free to define an out-of-band agreement on the
+semantic meaning, or valid values, for the attribute.
+
+## Attributes
+
+### sequence
+
+- Type: `String`
+- Description: Value expressing the relative order of the event. This enables
+  interpretation of data supercedence.
+- Constraints
+  - REQUIRED
+  - MUST be a non-empty lexicographically-orderable string
+  - RECOMMENDED as monotonically increasing and contiguous
+
+The entity creating the CloudEvent MUST ensure that the `sequence` values
+used are formatted such that across the entire set of values used a receiver
+can determine the order of the events via a simple string-compare type of
+operation. This means that it might be necessary for the value to include
+some kind of padding (e.g. leading zeros in the case of the value being the
+string representation of an integer).

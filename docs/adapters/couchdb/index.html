@@ -184,7 +184,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../index.md" class="md-tabs__link">
+    <a href="../.." class="md-tabs__link">
       主页
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../extensions/dataref/" class="md-tabs__link">
+      <a href="../../extensions/" class="md-tabs__link">
         扩展
       </a>
     </li>
@@ -345,7 +345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../index.md" class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         主页
       </a>
     </li>
@@ -792,9 +792,94 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          couchdb
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         couchdb
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#db_changes" class="md-nav__link">
+    /db/_changes
+  </a>
+  
+    <nav class="md-nav" aria-label="/db/_changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_db_updates" class="md-nav__link">
+    /_db_updates
+  </a>
+  
+    <nav class="md-nav" aria-label="/_db_updates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create" class="md-nav__link">
+    Create
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update_1" class="md-nav__link">
+    Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete_1" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -987,6 +1072,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../extensions/" class="md-nav__link">
+        扩展属性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../extensions/dataref/" class="md-nav__link">
         Dataref
       </a>
@@ -1167,6 +1266,75 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#db_changes" class="md-nav__link">
+    /db/_changes
+  </a>
+  
+    <nav class="md-nav" aria-label="/db/_changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_db_updates" class="md-nav__link">
+    /_db_updates
+  </a>
+  
+    <nav class="md-nav" aria-label="/_db_updates">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create" class="md-nav__link">
+    Create
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update_1" class="md-nav__link">
+    Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete_1" class="md-nav__link">
+    Delete
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1184,9 +1352,207 @@
 
 
 <h1 id="couchdb-cloudevents-adapter">CouchDB CloudEvents Adapter<a class="headerlink" href="#couchdb-cloudevents-adapter" title="Permanent link">&para;</a></h1>
-<p>本文档尚未被翻译，请先阅读英文<a href="../../../adapters/couchdb.md">原版文档</a> 。</p>
-<p>如果您迫切地需要此文档的中文翻译，请<a href="https://github.com/cloudevents/spec/issues">提交一个issue</a> ，
-我们会尽快安排专人进行翻译。</p>
+<p>This document describes how to convert:</p>
+<ul>
+<li><a href="http://docs.couchdb.org/en/stable/api/database/changes.html">CouchDB Document events</a> and</li>
+<li><a href="http://docs.couchdb.org/en/stable/api/server/common.html#db-updates">CouchDB Database events</a></li>
+</ul>
+<p>into CloudEvents.</p>
+<p>Each section below describes how to determine the CloudEvents attributes
+based on the event type.</p>
+<h2 id="db_changes">/db/_changes<a class="headerlink" href="#db_changes" title="Permanent link">&para;</a></h2>
+<h3 id="update">Update<a class="headerlink" href="#update" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">CloudEvents Attribute</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>id</code></td>
+<td align="left">The event sequence identifier (<code>seq</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>source</code></td>
+<td align="left">The server URL / <code>db</code></td>
+</tr>
+<tr>
+<td align="left"><code>specversion</code></td>
+<td align="left"><code>1.0</code></td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left"><code>org.apache.couchdb.document.updated</code></td>
+</tr>
+<tr>
+<td align="left"><code>datacontenttype</code></td>
+<td align="left"><code>application/json</code></td>
+</tr>
+<tr>
+<td align="left"><code>subject</code></td>
+<td align="left">The document identifier (<code>id</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>time</code></td>
+<td align="left">Current time</td>
+</tr>
+<tr>
+<td align="left"><code>data</code></td>
+<td align="left"><code>changes</code> value (array of <code>revs</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete">Delete<a class="headerlink" href="#delete" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">CloudEvents Attribute</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>id</code></td>
+<td align="left">The event sequence identifier (<code>seq</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>source</code></td>
+<td align="left">The server URL / <code>db</code></td>
+</tr>
+<tr>
+<td align="left"><code>specversion</code></td>
+<td align="left"><code>1.0</code></td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left"><code>org.apache.couchdb.document.deleted</code></td>
+</tr>
+<tr>
+<td align="left"><code>datacontenttype</code></td>
+<td align="left"><code>application/json</code></td>
+</tr>
+<tr>
+<td align="left"><code>subject</code></td>
+<td align="left">The document identifier (<code>id</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>time</code></td>
+<td align="left">Current time</td>
+</tr>
+<tr>
+<td align="left"><code>data</code></td>
+<td align="left"><code>changes</code> value (array of <code>revs</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_db_updates">/_db_updates<a class="headerlink" href="#_db_updates" title="Permanent link">&para;</a></h2>
+<h3 id="create">Create<a class="headerlink" href="#create" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">CloudEvents Attribute</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>id</code></td>
+<td align="left">The event sequence identifier (<code>seq</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>source</code></td>
+<td align="left">The server URL</td>
+</tr>
+<tr>
+<td align="left"><code>specversion</code></td>
+<td align="left"><code>1.0</code></td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left"><code>org.apache.couchdb.database.created</code></td>
+</tr>
+<tr>
+<td align="left"><code>subject</code></td>
+<td align="left">The database name (<code>db_name</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>time</code></td>
+<td align="left">Current time</td>
+</tr>
+</tbody>
+</table>
+<h3 id="update_1">Update<a class="headerlink" href="#update_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">CloudEvents Attribute</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>id</code></td>
+<td align="left">The event sequence identifier (<code>seq</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>source</code></td>
+<td align="left">The server URL</td>
+</tr>
+<tr>
+<td align="left"><code>specversion</code></td>
+<td align="left"><code>1.0</code></td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left"><code>org.apache.couchdb.database.updated</code></td>
+</tr>
+<tr>
+<td align="left"><code>subject</code></td>
+<td align="left">The database name (<code>db_name</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>time</code></td>
+<td align="left">Current time</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delete_1">Delete<a class="headerlink" href="#delete_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">CloudEvents Attribute</th>
+<th align="left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>id</code></td>
+<td align="left">The event sequence identifier (<code>seq</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>source</code></td>
+<td align="left">The server URL</td>
+</tr>
+<tr>
+<td align="left"><code>specversion</code></td>
+<td align="left"><code>1.0</code></td>
+</tr>
+<tr>
+<td align="left"><code>type</code></td>
+<td align="left"><code>org.apache.couchdb.database.deleted</code></td>
+</tr>
+<tr>
+<td align="left"><code>subject</code></td>
+<td align="left">The database name (<code>db_name</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>time</code></td>
+<td align="left">Current time</td>
+</tr>
+</tbody>
+</table>
 
               
             </article>

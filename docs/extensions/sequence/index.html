@@ -184,7 +184,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../index.md" class="md-tabs__link">
+    <a href="../.." class="md-tabs__link">
       主页
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../dataref/" class="md-tabs__link md-tabs__link--active">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
         扩展
       </a>
     </li>
@@ -345,7 +345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../index.md" class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         主页
       </a>
     </li>
@@ -977,6 +977,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        扩展属性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dataref/" class="md-nav__link">
         Dataref
       </a>
@@ -1042,9 +1056,53 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          序列
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         序列
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence_1" class="md-nav__link">
+    sequence
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1167,6 +1225,34 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence_1" class="md-nav__link">
+    sequence
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1184,9 +1270,34 @@
 
 
 <h1 id="sequence">Sequence<a class="headerlink" href="#sequence" title="Permanent link">&para;</a></h1>
-<p>本文档尚未被翻译，请先阅读英文<a href="../../../extensions/sequence.md">原版文档</a> 。</p>
-<p>如果您迫切地需要此文档的中文翻译，请<a href="https://github.com/cloudevents/spec/issues">提交一个issue</a> ，
-我们会尽快安排专人进行翻译。</p>
+<p>This extension defines an attribute that can be included within a CloudEvent
+to describe the position of an event in the ordered sequence of events produced
+by a unique event source.</p>
+<p>The <code>sequence</code> attribute represents the value of this event's order in the
+stream of events. This specification does not define the meaning or set of
+valid value of this attribute, rather it only mandates that the value be
+a string that can be lexicographically compared to other <code>sequence</code> values
+to determine which one comes first. The <code>sequence</code> with a lower lexicographical
+value comes first.</p>
+<p>Produces and consumers are free to define an out-of-band agreement on the
+semantic meaning, or valid values, for the attribute.</p>
+<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
+<h3 id="sequence_1">sequence<a class="headerlink" href="#sequence_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Type: <code>String</code></li>
+<li>Description: Value expressing the relative order of the event. This enables
+  interpretation of data supercedence.</li>
+<li>Constraints</li>
+<li>REQUIRED</li>
+<li>MUST be a non-empty lexicographically-orderable string</li>
+<li>RECOMMENDED as monotonically increasing and contiguous</li>
+</ul>
+<p>The entity creating the CloudEvent MUST ensure that the <code>sequence</code> values
+used are formatted such that across the entire set of values used a receiver
+can determine the order of the events via a simple string-compare type of
+operation. This means that it might be necessary for the value to include
+some kind of padding (e.g. leading zeros in the case of the value being the
+string representation of an integer).</p>
 
               
             </article>

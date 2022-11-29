@@ -1,4 +1,4 @@
-# CloudEvents 入门文档 -  1.0.3 版本（制作中）
+# CloudEvents 入门文档 - 1.0.3 版本（制作中）
 
 ## 摘要
 
@@ -27,9 +27,9 @@
 
 ## History/历史
 
-[CNCF Serverless 工作组](https://github.com/cncf/wg-serverless) 是由 CNCF的[技术监管委员会](https://github.com/cncf/toc) 成立，用于研究 Serverless 相关技术并为 CNCF 推荐相关领域的未来发展计划的工作组。工作组其中一项建议就是研究创建一种通用事件格式，用于提升不同云厂商间函数的可移植性和事件流处理的互操作性。就此，CloudEvents 应运而生。
+[CNCF Serverless 工作组](https://github.com/cncf/wg-serverless) 是由 CNCF 的[技术监管委员会](https://github.com/cncf/toc) 成立，用于研究 Serverless 相关技术并为 CNCF 推荐相关领域的未来发展计划的工作组。工作组其中一项建议就是研究创建一种通用事件格式，用于提升不同云厂商间函数的可移植性和事件流处理的互操作性。就此，CloudEvents 应运而生。
 
-尽管 CloudEvents 起初是作为 Serverless 工作组的项目进行的，但随着 CloudEvents 规范完成它v0.1版本的里程碑，技术监管委员会批准了 CloudEvents 作为一个新的独立的 CNCF 沙箱级项目。
+尽管 CloudEvents 起初是作为 Serverless 工作组的项目进行的，但随着 CloudEvents 规范完成它 v0.1 版本的里程碑，技术监管委员会批准了 CloudEvents 作为一个新的独立的 CNCF 沙箱级项目。
 
 ## Cloudevents Concepts/概念
 
@@ -47,7 +47,7 @@
 
 为了更好地解释一个系统如何使用 CloudEvents，下图展示了一个从事件源生产的事件是如何触发一个行为的。
 
-![alt text](../../source-event-action.png "A box representing the source with
+![alt text](./source-event-action.png "A box representing the source with
 arrow pointing to a box representing the action. The arrow is annotated with
 'e' for event and 'protocol'.")
 
@@ -90,19 +90,19 @@ CloudEvents 的核心规范中定义了一组称之为属性的元数据，
 一些协议本身支持将多个事件批处理到单个 API 的调用中。
 为了提升系统间的互操作性，是否以及如何实现批处理将由协议自己决定。
 相关详细信息可以在协议绑定或协议规范中找到。
-成批的CloudEvents并没有语义，也没有排序。
+成批的 CloudEvents 并没有语义，也没有排序。
 [中间人](spec.md#intermediary中间人)可以添加或删除批处理以及将事件分配给不同的批处理。
 
 事件的目的或语义含义超出了 CloudEvents 规范的范围。
 只要发送的消息符合规范，那么它就是一个有效的 CloudEvent。
-很多人不容易意识到一件事，错误和异常是可以作为CloudEvents来传输的。
+很多人不容易意识到一件事，错误和异常是可以作为 CloudEvents 来传输的。
 接下来应由事件生产者定义将使用的 CloudEvents 属性值，就像它可能生成的任何其他事件一样。
 
-由于并非所有事件生产者都将其事件以CloudEvents的形式发布，
-因此我们定义了一组 [适配器](../../adapters.md)
+由于并非所有事件生产者都将其事件以 CloudEvents 的形式发布，
+因此我们定义了一组 [适配器](./adapters.md)
 来展示如何将事件从一些流行的事件生产者映射到 CloudEvents。
 这些适配器是非规范的，
-但它们是规范作者对 CloudEvents 属性如何在其它生产者本地生成事件并映射到CloudEvents时的最佳猜测。
+但它们是规范作者对 CloudEvents 属性如何在其它生产者本地生成事件并映射到 CloudEvents 时的最佳猜测。
 
 ### Non Goals/非目标
 
@@ -116,12 +116,12 @@ CloudEvents 的核心规范中定义了一组称之为属性的元数据，
 - 授权、数据完整性和保密机制
 
 就连那些刚接触 CloudEvents 概念的人都会建议
-CloudEvents 规范不应包括协议级路由信息（例如，将事件发送到的目标的URL）。
-经过深思熟虑，工作组得出的结论是，CloudEvents规范中不需要路由信息：
+CloudEvents 规范不应包括协议级路由信息（例如，将事件发送到的目标的 URL）。
+经过深思熟虑，工作组得出的结论是，CloudEvents 规范中不需要路由信息：
 因为任何现有的协议（例如 HTTP、MQTT、XMPP 或 Pub/Sub 总线）都已经定义了路由语义。
-例如，CloudEvents [HTTP 绑定](../../bindings/http-protocol-binding.md) 规定了头部和请求正文内容。
+例如，CloudEvents [HTTP 绑定](./bindings/http-protocol-binding.md) 规定了头部和请求正文内容。
 CloudEvents 不需要在规范中包含目标 URL 即可与 HTTP 兼容；HTTP 规范已经在
-[请求行](https://tools.ietf.org/html/rfc2616#section-5.1) 中包含了所需的目标URL。
+[请求行](https://tools.ietf.org/html/rfc2616#section-5.1) 中包含了所需的目标 URL。
 
 路由信息不仅是多余的，而且是有害的。
 CloudEvents 应该增加互操作性并解耦事件的生产者和消费者。
@@ -152,15 +152,15 @@ CloudEvents 规范集定义了四种有助于形成分层架构模型的不同�
    该模型由属性（键值对）和构成 CloudEvent 的相关规则组成。此规范包含了*核心属性*的定义。有些核心属性必须出现在所有的 CloudEvents 中，有些则是可选的。
 2. [扩展属性](spec.md#extension-context-attributes扩展上下文属性)
    添加了特定于用例且可能重叠的扩展属性集和相关规则，如支持不同的追踪标准的规则。
-3. 事件格式编码,如 [JSON](../../formats/json-format.md), 定义了基本规范的信息模型与所选扩展的编码方式，
+3. 事件格式编码,如 [JSON](./formats/json-format.md), 定义了基本规范的信息模型与所选扩展的编码方式，
    以将其映射到应用程序协议的头部和负载元素。
-4. 协议绑定, 如. [HTTP协议绑定](../../bindings/http-protocol-binding.md),
-   在HTTP to HTTP的情况下，
+4. 协议绑定, 如. [HTTP 协议绑定](./bindings/http-protocol-binding.md),
+   在 HTTP to HTTP 的情况下，
    定义了 CloudEvent 如何绑定到应用程序协议的传输层。
-   协议绑定不限制传输层的使用方式，这意味着 HTTP绑定可用于任何 HTTP方法以及请求和响应消息。
+   协议绑定不限制传输层的使用方式，这意味着 HTTP 绑定可用于任何 HTTP 方法以及请求和响应消息。
 
 为了确保更广泛的互操作性，CloudEvents 规范集为使用专有应用协议的事件传输提供了特定约束。
-[HTTP Webhook](../../http-webhook.md) 规范并非特定于 CloudEvents，
+[HTTP Webhook](./http-webhook.md) 规范并非特定于 CloudEvents，
 而是可用于将任何类型的单向事件和通知发布到符合标准的 HTTP 端点。
 但是，由于其他地方缺乏此类规范，因此 CloudEvents 需要对其进行定义。
 
@@ -186,7 +186,7 @@ CloudEvents 规范在很大程度上并未规定与 CloudEvents 的创建或处�
 CloudEvents 规范不强制要求要使用的特定模式，甚至不要求必须考虑用到版本控制。
 这个决定取决于每个事件生产者。
 
-然而，鼓励事件生产者考虑他们如何在不破坏消费者的情况下发展他们的scheme。
+然而，鼓励事件生产者考虑他们如何在不破坏消费者的情况下发展他们的 scheme。
 两个具体的上下文属性`type` 和 `dataschema`在这方面尤为重要，但是预期用法有所不同。
 两者间在版本控制方面的差异在下面介绍。
 
@@ -197,7 +197,7 @@ CloudEvents 规范不强制要求要使用的特定模式，甚至不要求必�
 ### `type` 属性在版本控制方面的作用
 
 `type` 属性应该是消费者识别他们收到的事件类型的主要方式。
-这可以通过订阅特定的 CloudEvent 类型来实现，或者通过本地过滤所有收到的 CloudEvent实现。
+这可以通过订阅特定的 CloudEvent 类型来实现，或者通过本地过滤所有收到的 CloudEvent 实现。
 但确定了 CloudEvent 类型的消费者通常会期望该类型的数据
 仅以向后兼容的方式更改，除非另有明确说明。
 “向后兼容”的确切含义将因数据内容类型而异。
@@ -221,7 +221,7 @@ CloudEvents 规范不强制要求要使用的特定模式，甚至不要求必�
 `dataschema` 属性的值通常应更改以反映这一点。
 另一种方法是让 URI 保持不变，但从该 URI 提供的内容要更改以反映更新的架构。
 后一种方法对于事件生产者来说可能更容易实现，
-但对于希望通过 URI 缓存schema内容的消费者来说不太方便。
+但对于希望通过 URI 缓存 schema 内容的消费者来说不太方便。
 
 当 CloudEvent 的数据以向后不兼容的方式更改时，`dataschema` 属性的值通常应更改，
 就像上述的 `type` 属性的情况一样。
@@ -269,21 +269,21 @@ CloudEvents 规范不强制要求要使用的特定模式，甚至不要求必�
 
 工作组考虑到某些属性不够常见而不能归入上述两个类别，
 但此类属性的良好定义仍会使系统间的互操作性级别受益，
-因此将这些属性放入了“扩展”类别并记录在[扩展文档](../../documented-extensions.md)中，
+因此将这些属性放入了“扩展”类别并记录在[扩展文档](./documented-extensions.md)中，
 本规范定义了这些扩展属性在 CloudEvent 中的显示方式。
 
 在确定提议的属性属于哪个类别时，
 工作组使用现有的用例和用户故事来解释它们的基本原理和需求。
 相关信息将添加到本文档的[现有技术](#prior-art现有技术)部分。
 
-CloudEvent 规范的扩展属性是需要包含的附加元数据，它们能确保正确的路由和正确处理CloudEvent。
+CloudEvent 规范的扩展属性是需要包含的附加元数据，它们能确保正确的路由和正确处理 CloudEvent。
 用于其它目的的附加元数据，
 即那些与事件本身相但在 CloudEvent 的传输或处理中不需要的元数据，
 应改为放置在事件 (`data`)的扩展点内。
 
 扩展属性应保持最少，以确保 CloudEvent 可以正确序列化和传输。
 事件生产者应该考虑在向 CloudEvent 添加扩展时可能遇到的技术限制。
-例如，[HTTP Binary Mode](../../bindings/http-protocol-binding.md#31-binary-content-mode)
+例如，[HTTP Binary Mode](./bindings/http-protocol-binding.md#31-binary-content-mode)
 使用 HTTP 头来传输元数据；
 大多数 HTTP 服务器会拒绝包含过多 HTTP 头部数据的请求，要求限制其低至 8kb。
 因此，扩展属性的大小和数量应保持最小。
@@ -293,8 +293,8 @@ CloudEvent 规范的扩展属性是需要包含的附加元数据，它们能确
 
 ### JSON Extensions/JSON 扩展
 
-如 [CloudEvents JSON 事件格式](../../formats/json-format.md)中
-[属性](../../formats/json-format.md#2-attributes)部分所述，
+如 [CloudEvents JSON 事件格式](./formats/json-format.md)中
+[属性](./formats/json-format.md#2-attributes)部分所述，
 CloudEvent 扩展属性与已定义属性(必要属性、可选属性)在序列化时处于同一等级 -
 也就是说，它们都是 JSON 对象的顶层属性。
 CloudEvent 的作者花了很长时间考虑所有选项，并认为这是最好的选择。
@@ -349,6 +349,7 @@ CloudEvents 规范有意避免将 CloudEvents 的创建方式设计的过于死�
 出站 CloudEvent 与入站 CloudEvent 匹配的程度将根据该实体的处理语义而有所不同。
 在它充当代理的情况下，它只是将 CloudEvents 转发给另一个事件消费者，
 那么出站 CloudEvent 通常看起来与入站 CloudEvent 就规范定义的属性相同
+
 - 请参阅上一段有关添加其他属性的内容。
 
 但是，如果此实体正在执行 CloudEvent 的某种类型的语义处理，
@@ -401,7 +402,7 @@ CloudEvents 旨在提供这种开放的数据格式，并将其数据格式映�
 还有一些来自单个公司发布的强大项目生态系统，在任何一种情况下都与前面提到的标准栈的演变相一致。
 
 CloudEvents 的努力不应成为认可或推广项目或产品专有协议的工具，
-因为这与CloudEvents 的原始目标背道而驰。
+因为这与 CloudEvents 的原始目标背道而驰。
 
 要使协议或编码符合核心 CloudEvents 事件格式或协议绑定的条件，它必须属于以下任一类别：
 
@@ -417,14 +418,14 @@ CloudEvents 的努力不应成为认可或推广项目或产品专有协议的�
 对此的基本要求是协议或编码的定义方式允许独立于产品或项目代码的替代实现。
 
 欢迎将 CloudEvents 的所有其他协议和编码格式
-包含在指向相应项目自己的公共仓库，或站点中的 CloudEvents binding信息的列表中。
+包含在指向相应项目自己的公共仓库，或站点中的 CloudEvents binding 信息的列表中。
 
 ## Proprietary Protocols and Encodings/专有的协议与编码
 
 为了鼓励更多人采用 CloudEvents，本仓库将自动收集专有协议和编码。
 本仓库的维护人员不负责创建、维护或通知专有规范的维护人员有关专有规范和 CloudEvents 规范间的偏差。
 
-专有规范将托管在他们自己的仓库或文档站点中，并记录在[专有规范](../../proprietary-specs.md)
+专有规范将托管在他们自己的仓库或文档站点中，并记录在[专有规范](./proprietary-specs.md)
 文件中。 专有规范应遵循与核心协议和编码相关的其他规范相同的格式。
 
 专有规范将比核心规范受到更少的审查，并且随着 CloudEvents 规范的发展，
@@ -469,41 +470,41 @@ CloudEvents 的努力不应成为认可或推广项目或产品专有协议的�
 
    消费应用程序通常对以下内容感兴趣：
 
-    - 区分事件，使得完全相同的事件不会被处理两次。
-    - 识别和选择源上下文或生产者指定的分类。
-    - 确定事件相对于原始上下文或相对于时钟的时间顺序。
-    - 了解事件中携带的上下文相关的详细信息。
-    - 关联来自多个事件生产者的事件实例并将它们发送到相同的消费者上下文。
+   - 区分事件，使得完全相同的事件不会被处理两次。
+   - 识别和选择源上下文或生产者指定的分类。
+   - 确定事件相对于原始上下文或相对于时钟的时间顺序。
+   - 了解事件中携带的上下文相关的详细信息。
+   - 关联来自多个事件生产者的事件实例并将它们发送到相同的消费者上下文。
 
    在某些情况下，消费应用程序可能对以下内容感兴趣：
 
-    - 从原始上下文中获取有关事件主题的更多详细信息，例如获取有关需要特权访问授权的已更改对象的详细信息。
-      例如，出于隐私原因，HR 解决方案可能仅在事件中发布非常有限的信息，
-      任何需要更多数据的事件消费者都必须在其自己的授权上下文背景下从 HR 系统获取与事件相关的详细信息
-    - 在原始上下文中与事件的主题进行交互，例如在被告知该数据块刚刚创建后读取存储该数据块。
+   - 从原始上下文中获取有关事件主题的更多详细信息，例如获取有关需要特权访问授权的已更改对象的详细信息。
+     例如，出于隐私原因，HR 解决方案可能仅在事件中发布非常有限的信息，
+     任何需要更多数据的事件消费者都必须在其自己的授权上下文背景下从 HR 系统获取与事件相关的详细信息
+   - 在原始上下文中与事件的主题进行交互，例如在被告知该数据块刚刚创建后读取存储该数据块。
 
    消费者的兴趣激发了信息生产者应该包括事件的需求。
 
 3. 中间件将事件从生产者路由到消费者，或转发到其他中间件。
    产生事件的应用程序可能会将根据消费者需求产生的某些任务委托给中间件：
 
-    - 管理同时对大量类别和上下文背景中的某个事件感兴趣的消费者。
-    - 代表消费者在类或事件的原始上下文上处理过滤条件。
-    - 转码，比如从 JSON 解码后在 MsgPack 中编码。
-    - 更改事件结构的转换，例如从专有格式映射到 CloudEvents，同时保留事件的身份和语义完整性。
-    - 即时“推送式”传输给感兴趣的消费者。
-    - 存储最终传输的事件，用于由消费者发起的“拉”请求，或延迟后由中间件发起“推”请求。
-    - 观察事件内容或事件流以进行监控或诊断。
+   - 管理同时对大量类别和上下文背景中的某个事件感兴趣的消费者。
+   - 代表消费者在类或事件的原始上下文上处理过滤条件。
+   - 转码，比如从 JSON 解码后在 MsgPack 中编码。
+   - 更改事件结构的转换，例如从专有格式映射到 CloudEvents，同时保留事件的身份和语义完整性。
+   - 即时“推送式”传输给感兴趣的消费者。
+   - 存储最终传输的事件，用于由消费者发起的“拉”请求，或延迟后由中间件发起“推”请求。
+   - 观察事件内容或事件流以进行监控或诊断。
 
    为了满足这些需求，中间件将对以下方面感兴趣：
 
-    - 一种元数据鉴别器，可用于事件的分类或上下文化，以便消费者可以表达对一个或多个类或上下文的兴趣。
-      例如，消费者可能对文件存储帐户内的特定目录相关的所有事件感兴趣。
-    - 一种元数据鉴别器，允许区分该类或上下文的特定事件的主题。例如，消费者可能希望过滤掉与以“.jpg”结尾的
-      新文件相关的所有事件（文件名是“新文件”事件的主题），以此表示它对感兴趣的文件存储账户下某个目录的
-      上下文环境。
-    - 一个事件及其数据编码的指示器。
-    - 一个事件及其数据的结构布局（模式）的指示器。
+   - 一种元数据鉴别器，可用于事件的分类或上下文化，以便消费者可以表达对一个或多个类或上下文的兴趣。
+     例如，消费者可能对文件存储帐户内的特定目录相关的所有事件感兴趣。
+   - 一种元数据鉴别器，允许区分该类或上下文的特定事件的主题。例如，消费者可能希望过滤掉与以“.jpg”结尾的
+     新文件相关的所有事件（文件名是“新文件”事件的主题），以此表示它对感兴趣的文件存储账户下某个目录的
+     上下文环境。
+   - 一个事件及其数据编码的指示器。
+   - 一个事件及其数据的结构布局（模式）的指示器。
 
    事件是否可通过中间件消费取决于生产者的选择。
 
@@ -540,7 +541,7 @@ CloudEvents 可以为那些跨平台和服务处理事件的使用者提供单�
 
 跨环境传输的事件数据越来越普遍。
 然而，如果没有描述事件的通用方式，跨环境的事件传递就会受到阻碍。
-CloudEvents之前没有单一的方法可以确定事件的来源和可能的去向。
+CloudEvents 之前没有单一的方法可以确定事件的来源和可能的去向。
 这对研究成功传输事件事件工具和消费者知道如何处理事件数据形成了巨大阻碍。
 
 CloudEvents 提供有用的元数据，中间件和消费者可以依赖这些元数据来促进事件路由、日志记录、传输和接收。
@@ -554,7 +555,7 @@ CloudEvents 提供有用的元数据，中间件和消费者可以依赖这些�
 
 CloudEvents 提供描述事件数据的通用方式提高了功能即服务的可移植性。
 
-#### 改进事件驱动/serverless架构的开发和测试
+#### 改进事件驱动/serverless 架构的开发和测试
 
 缺乏通用事件格式使事件驱动和 serverless 架构的开发和测试变得复杂。
 没有简单的方法可以准确地为开发和测试目的模拟事件，并帮助在开发环境中模拟事件驱动的工作流。
@@ -649,10 +650,10 @@ CloudEvents 将为任何事件使用者（例如 serverless 平台）提供一�
     "@type": "types.googleapis.com/google.pubsub.v1.PubsubMessage",
     "attributes": {
       "foo": "bar"
-     },
-     "messageId": "12345",
-     "publishTime": "2017-06-05T12:00:00.000Z",
-     "data": "somebase64encodedmessage"
+    },
+    "messageId": "12345",
+    "publishTime": "2017-06-05T12:00:00.000Z",
+    "data": "somebase64encodedmessage"
   },
   "context": {
     "eventId": "12345",
@@ -679,9 +680,7 @@ AWS 上的很大一部分事件处理系统都在使用这种格式。
   "account": "111122223333",
   "time": "2017-12-22T18:43:48Z",
   "region": "us-west-1",
-  "resources": [
-    "arn:aws:ec2:us-west-1:123456789012:instance/i-1234567890abcdef0"
-  ],
+  "resources": ["arn:aws:ec2:us-west-1:123456789012:instance/i-1234567890abcdef0"],
   "detail": {
     "instance-id": "i-1234567890abcdef0",
     "state": "terminated"
@@ -689,7 +688,7 @@ AWS 上的很大一部分事件处理系统都在使用这种格式。
 }
 ```
 
-#### IBM - OpenWhisk - Web Action Event/IBM - OpenWhisk - Web Action事件
+#### IBM - OpenWhisk - Web Action Event/IBM - OpenWhisk - Web Action 事件
 
 ```json
 {

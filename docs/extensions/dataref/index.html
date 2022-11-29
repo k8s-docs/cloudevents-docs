@@ -184,7 +184,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../index.md" class="md-tabs__link">
+    <a href="../.." class="md-tabs__link">
       主页
     </a>
   </li>
@@ -265,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="./" class="md-tabs__link md-tabs__link--active">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
         扩展
       </a>
     </li>
@@ -345,7 +345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../index.md" class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         主页
       </a>
     </li>
@@ -975,6 +975,20 @@
               
   
   
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        扩展属性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
     
   
   
@@ -986,9 +1000,53 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Dataref
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Dataref
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataref" class="md-nav__link">
+    dataref
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1167,6 +1225,34 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    Attributes
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataref" class="md-nav__link">
+    dataref
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1184,9 +1270,68 @@
 
 
 <h1 id="dataref-claim-check-pattern">Dataref (Claim Check Pattern)<a class="headerlink" href="#dataref-claim-check-pattern" title="Permanent link">&para;</a></h1>
-<p>本文档尚未被翻译，请先阅读英文<a href="../../../extensions/dataref.md">原版文档</a> 。</p>
-<p>如果您迫切地需要此文档的中文翻译，请<a href="https://github.com/cloudevents/spec/issues">提交一个issue</a> ，
-我们会尽快安排专人进行翻译。</p>
+<p>As defined by the term <a href="../../spec/#data">Data</a>, CloudEvents MAY include
+domain-specific information about the occurrence. When present, this information
+will be encapsulated within <code>data</code>.
+The <code>dataref</code> attribute MAY be used to reference another location where this
+information is stored. The information, whether accessed via <code>data</code> or <code>dataref</code>
+MUST be identical.</p>
+<p>Both <code>data</code> and the <code>dataref</code> attribute MAY exist at the same time. A middleware
+MAY drop <code>data</code> when the <code>dataref</code> attribute exists, it MAY add
+the <code>dataref</code> attribute and drop the <code>data</code> attribute, or it MAY add the <code>data</code>
+attribute by using the <code>dataref</code> attribute.</p>
+<h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
+<h3 id="dataref">dataref<a class="headerlink" href="#dataref" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Type: <code>URI-reference</code></li>
+<li>Description: A reference to a location where the event payload is stored. The
+  location MAY not be accessible without further information (e.g. a pre-shared
+  secret).</li>
+</ul>
+<p>Known as the "Claim Check Pattern", this attribute MAY be used for a variety
+  of purposes, including:</p>
+<ul>
+<li>If the <a href="../../spec/#data">Data</a> is too large to be included in the
+    message, the <code>data</code> is not present, and the consumer can retrieve it using
+    this attribute.</li>
+<li>If the consumer wants to verify that the <a href="../../spec/#data">Data</a>
+    has not been tampered with, it can retrieve it from a trusted source using
+    this attribute.</li>
+<li>If the <a href="../../spec/#data">Data</a> MUST only be viewed by trusted
+    consumers (e.g. personally identifiable information), only a trusted
+    consumer can retrieve it using this attribute and a pre-shared secret.</li>
+</ul>
+<p>If this attribute is used, the information SHOULD be accessible long enough
+  for all consumers to retrieve it, but MAY not be stored for an extended period
+  of time.</p>
+<ul>
+<li>Constraints:</li>
+<li>OPTIONAL</li>
+</ul>
+<h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h1>
+<p>The following example shows a CloudEvent in which the event producer has included
+both <code>data</code> and <code>dataref</code> (serialized as JSON):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;specversion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.github.pull_request.opened&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/cloudevents/spec/pull/123&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A234-1234-1234&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;datacontenttype&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text/xml&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;much wow=\&quot;xml\&quot;/&gt;&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;dataref&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/cloudevents/spec/pull/123/events/A234-1234-1234.xml&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>The following example shows a CloudEvent in which a middleware has replaced the
+<code>data</code> with a <code>dataref</code> (serialized as JSON):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;specversion&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.github.pull_request.opened&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/cloudevents/spec/pull/123&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A234-1234-1234&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;datacontenttype&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text/xml&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;dataref&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://tenant123.middleware.com/events/data/A234-1234-1234.xml&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
 
               
             </article>
@@ -1205,7 +1350,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../../bindings/websockets-protocol-binding/" class="md-footer__link md-footer__link--prev" aria-label="Previous: WebSockets" rel="prev">
+        <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: 扩展属性" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1214,7 +1359,7 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              WebSockets
+              扩展属性
             </div>
           </div>
         </a>
