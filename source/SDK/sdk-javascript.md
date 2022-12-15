@@ -1,39 +1,34 @@
-# JavaScript SDK for CloudEvents
+# 用于CloudEvents的JavaScript SDK
 
 > https://cloudevents.github.io/sdk-javascript/
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2e29a55fb4084ecca4642d72dc4c83d4)](https://www.codacy.com/gh/cloudevents/sdk-javascript/dashboard?utm_source=github.com&utm_medium=referral&utm_content=cloudevents/sdk-javascript&utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/2e29a55fb4084ecca4642d72dc4c83d4)](https://www.codacy.com/gh/cloudevents/sdk-javascript/dashboard?utm_source=github.com&utm_medium=referral&utm_content=cloudevents/sdk-javascript&utm_campaign=Badge_Coverage)
-![Node.js CI](https://github.com/cloudevents/sdk-javascript/workflows/Node.js%20CI/badge.svg)
-[![npm version](https://img.shields.io/npm/v/cloudevents.svg)](https://www.npmjs.com/package/cloudevents)
-[![vulnerabilities](https://snyk.io/test/github/cloudevents/sdk-javascript/badge.svg)](https://snyk.io/test/github/cloudevents/sdk-javascript)
+用于JavaScript的CloudEvents SDK。
 
-The CloudEvents SDK for JavaScript.
+## 特性
 
-## Features
+- 在内存中表示CloudEvents
+- 序列化和反序列化不同[事件格式](https://github.com/cloudevents/spec/blob/v1.0/spec.md#event-format)的CloudEvents.
+- 通过不同的[协议绑定](https://github.com/cloudevents/spec/blob/v1.0/spec.md#protocol-binding)发送和接收CloudEvents.
 
-- Represent CloudEvents in memory
-- Serialize and deserialize CloudEvents in different [event formats](https://github.com/cloudevents/spec/blob/v1.0/spec.md#event-format).
-- Send and recieve CloudEvents with via different [protocol bindings](https://github.com/cloudevents/spec/blob/v1.0/spec.md#protocol-binding).
+!!! note
+    支持CloudEvent 1.0版本
 
-_Note:_ Supports CloudEvent version 1.0
+## 安装
 
-## Installation
-
-The CloudEvents SDK requires a current LTS version of Node.js. At the moment
-those are Node.js 12.x, Node.js 14.x and Node.js 16.x. To install in your Node.js project:
+CloudEvents SDK需要Node.js的当前LTS版本。
+目前它们是Node.js 12.x, Node.js 14.x和Node.js 16.x。
+在你的Node.js项目中安装:
 
 ```console
 npm install cloudevents
 ```
 
-### Receiving and Emitting Events
+### 接收和发射事件
 
-#### Receiving Events
+#### 接收事件
 
-You can choose any popular web framework for port binding. A `CloudEvent`
-object can be created by simply providing the `HTTP` protocol binding
-the incoming headers and request body.
+您可以选择任何流行的web框架进行端口绑定。
+只需提供绑定传入标头和请求体的`HTTP`协议，就可以创建`CloudEvent`对象。
 
 ```js
 const app = require("express")();
@@ -46,9 +41,9 @@ app.post("/", (req, res) => {
 });
 ```
 
-#### Emitting Events
+#### 发射事件
 
-The easiest way to send events is to use the built-in HTTP emitter.
+发送事件最简单的方法是使用内置的HTTP发射器。
 
 ```js
 const { httpTransport, emitterFor, CloudEvent } = require("cloudevents");
@@ -63,11 +58,8 @@ const ce = new CloudEvent({ type, source, data });
 emit(ce);
 ```
 
-If you prefer to use another transport mechanism for sending events
-over HTTP, you can use the `HTTP` binding to create a `Message` which
-has properties for `headers` and `body`, allowing greater flexibility
-and customization. For example, the `axios` module is used here to send
-a CloudEvent.
+如果您更喜欢使用另一种传输机制通过HTTP发送事件，则可以使用`HTTP`绑定创建一个Message，该Message具有`headers` 和 `body`属性，允许更大的灵活性和自定义。
+例如，这里使用`axios`模块发送一个CloudEvent。
 
 ```js
 const axios = require("axios").default;
@@ -84,7 +76,7 @@ axios({
 });
 ```
 
-You may also use the `emitterFor()` function as a convenience.
+你也可以方便地使用`emitterFor()`函数。
 
 ```js
 const axios = require("axios").default;
@@ -106,7 +98,7 @@ const emit = emitterFor(sendWithAxios, { mode: Mode.BINARY });
 emit(new CloudEvent({ type, source, data }));
 ```
 
-You may also use the `Emitter` singleton to send your `CloudEvents`.
+你也可以使用`Emitter`单例来发送你的`CloudEvents`。
 
 ```js
 const { emitterFor, httpTransport, Mode, CloudEvent, Emitter } = require("cloudevents");
@@ -125,9 +117,12 @@ new CloudEvent({ type, source, data }).emit();
 // You can also have several listeners to send the event to several endpoints
 ```
 
-## CloudEvent Objects
+## CloudEvent 对象
 
-All created `CloudEvent` objects are read-only. If you need to update a property or add a new extension to an existing cloud event object, you can use the `cloneWith` method. This will return a new `CloudEvent` with any update or new properties. For example:
+所有创建的`CloudEvent`对象都是只读的。
+如果您需要更新属性或向现有云事件对象添加新的扩展，可以使用`cloneWith`方法。
+这将返回一个带有任何更新或新属性的新`CloudEvent`。
+例如:
 
 ```js
 const {
@@ -141,7 +136,7 @@ const ce = new CloudEvent({...});
 const ce2 = ce.cloneWith({extension: "Value"});
 ```
 
-You can create a `CloudEvent` object in many ways, for example, in TypeScript:
+你可以通过多种方式创建一个`CloudEvent` 对象，例如，在TypeScript中:
 
 ```ts
 import { CloudEvent, CloudEventV1, CloudEventV1Attributes } from "cloudevents";
@@ -164,17 +159,176 @@ const event3 = new CloudEvent({
 });
 ```
 
-### Example Applications
+## 示例应用程序
 
-There are a few trivial example applications in
-[the examples folder](https://github.com/cloudevents/sdk-javascript/tree/main/examples).
-There you will find Express.js, TypeScript and Websocket examples.
+在[示例文件夹](https://github.com/cloudevents/sdk-javascript/tree/main/examples)中有一些简单的示例应用程序。
+在那里你可以找到Express.js, TypeScript和Websocket的例子。
 
-### API Transition Guide
+### Express Example
+
+```js
+/* eslint-disable */
+
+const express = require("express");
+const { CloudEvent, HTTP } = require("cloudevents");
+const app = express();
+
+app.use((req, res, next) => {
+  let data = "";
+
+  req.setEncoding("utf8");
+  req.on("data", function (chunk) {
+    data += chunk;
+  });
+
+  req.on("end", function () {
+    req.body = data;
+    next();
+  });
+});
+
+app.post("/", (req, res) => {
+  console.log("HEADERS", req.headers);
+  console.log("BODY", req.body);
+
+  try {
+    const event = HTTP.toEvent({ headers: req.headers, body: req.body });
+    // respond as an event
+    const responseEventMessage = new CloudEvent({
+      source: '/',
+      type: 'event:response',
+      ...event,
+      data: {
+        hello: 'world'
+      }
+    });
+
+    // const message = HTTP.binary(responseEventMessage)
+    const message = HTTP.structured(responseEventMessage)
+    res.set(message.headers)
+    res.send(message.body)
+
+  } catch (err) {
+    console.error(err);
+    res.status(415).header("Content-Type", "application/json").send(JSON.stringify(err));
+  }
+});
+
+app.listen(3000, () => {
+  console.log("Example app listening on port 3000!");
+});
+```
+
+### WebSocket Example
+
+```js
+/* eslint-disable no-console */
+const got = require("got");
+
+const { CloudEvent } = require("cloudevents");
+const WebSocket = require("ws");
+const wss = new WebSocket.Server({ port: 8080 });
+
+const api = "https://api.openweathermap.org/data/2.5/weather";
+const key = process.env.OPEN_WEATHER_API_KEY || "REPLACE WITH API KEY";
+
+console.log("WebSocket server started. Waiting for events.");
+
+wss.on("connection", function connection(ws) {
+  console.log("Connection received");
+  ws.on("message", function incoming(message) {
+    console.log(`Message received: ${message}`);
+    const event = new CloudEvent(JSON.parse(message));
+    fetch(event.data.zip)
+      .then((weather) => {
+        const response = new CloudEvent({
+          datacontenttype: "application/json",
+          type: "current.weather",
+          source: "/weather.server",
+          data: weather,
+        });
+        ws.send(JSON.stringify(response));
+      })
+      .catch((err) => {
+        console.error(err);
+        ws.send(
+          JSON.stringify(
+            new CloudEvent({
+              type: "weather.error",
+              source: "/weather.server",
+              data: err.toString(),
+            }),
+          ),
+        );
+      });
+  });
+});
+
+function fetch(zip) {
+  const query = `${api}?zip=${zip}&appid=${key}&units=imperial`;
+  return new Promise((resolve, reject) => {
+    got(query)
+      .then((response) => resolve(JSON.parse(response.body)))
+      .catch((err) => reject(err.message));
+  });
+}
+```
+### Typescript Example
+
+```ts
+/* eslint-disable no-console */
+import { CloudEvent, HTTP } from "cloudevents";
+
+export function doSomeStuff(): void {
+  const myevent: CloudEvent = new CloudEvent({
+    source: "/source",
+    type: "type",
+    datacontenttype: "text/plain",
+    dataschema: "https://d.schema.com/my.json",
+    subject: "cha.json",
+    data: "my-data",
+    extension1: "some extension data",
+  });
+
+  console.log("My structured event:", myevent);
+
+  // ------ receiver structured
+  // The header names should be standarized to use lowercase
+  const headers = {
+    "content-type": "application/cloudevents+json",
+  };
+
+  // Typically used with an incoming HTTP request where myevent.format() is the actual
+  // body of the HTTP
+  console.log("Received structured event:", HTTP.toEvent({ headers, body: myevent }));
+
+  // ------ receiver binary
+  const data = {
+    data: "dataString",
+  };
+  const attributes = {
+    "ce-type": "type",
+    "ce-specversion": "1.0",
+    "ce-source": "source",
+    "ce-id": "id",
+    "ce-time": "2019-06-16T11:42:00Z",
+    "ce-dataschema": "http://schema.registry/v1",
+    "Content-Type": "application/json",
+    "ce-extension1": "extension1",
+  };
+
+  console.log("My binary event:", HTTP.toEvent({ headers: attributes, body: data }));
+  console.log("My binary event extensions:", HTTP.toEvent({ headers: attributes, body: data }));
+}
+
+doSomeStuff();
+```
+
+## API过渡指南
 
 [Guide Link](./API_TRANSITION_GUIDE.md)
 
-## Supported specification features
+## 支持的规范特性
 
 | Core Specification | [v0.3](https://github.com/cloudevents/spec/blob/v0.3/spec.md) | [v1.0](https://github.com/cloudevents/spec/blob/v1.0/spec.md) |
 | ------------------ | ------------------------------------------------------------- | ------------------------------------------------------------- |
@@ -209,39 +363,3 @@ There you will find Express.js, TypeScript and Websocket examples.
 | Kafka Batch      | :heavy_check_mark:                                    | :heavy_check_mark:                                                                              |
 | MQTT Binary      | :heavy_check_mark:                                    | :heavy_check_mark:                                                                              |
 | MQTT Structured  | :heavy_check_mark:                                    | :heavy_check_mark:                                                                              |
-
-## Community
-
-- There are bi-weekly calls immediately following the [Serverless/CloudEvents
-  call](https://github.com/cloudevents/spec#meeting-time) at
-  9am PT (US Pacific). Which means they will typically start at 10am PT, but
-  if the other call ends early then the SDK call will start early as well.
-  See the [CloudEvents meeting minutes](https://docs.google.com/document/d/1OVF68rpuPK5shIHILK9JOqlZBbfe91RNzQ7u_P7YCDE/edit#)
-  to determine which week will have the call.
-- Slack: #cloudeventssdk channel under
-  [CNCF's Slack workspace](https://slack.cncf.io/).
-- Email: https://lists.cncf.io/g/cncf-cloudevents-sdk
-
-## Maintainers
-
-Currently active maintainers who may be found in the CNCF Slack.
-
-- Lance Ball (@lance)
-- Lucas Holmquist (@lholmquist)
-
-## Contributing
-
-We love contributions from the community! Please check the
-[Contributor's Guide](https://github.com/cloudevents/sdk-javascript/blob/main/CONTRIBUTING.md)
-for information on how to get involved.
-
-Each SDK may have its own unique processes, tooling and guidelines, common
-governance related material can be found in the
-[CloudEvents `community`](https://github.com/cloudevents/spec/tree/master/community)
-directory. In particular, in there you will find information concerning
-how SDK projects are
-[managed](https://github.com/cloudevents/spec/blob/master/community/SDK-GOVERNANCE.md),
-[guidelines](https://github.com/cloudevents/spec/blob/master/community/SDK-maintainer-guidelines.md)
-for how PR reviews and approval, and our
-[Code of Conduct](https://github.com/cloudevents/spec/blob/master/community/GOVERNANCE.md#additional-information)
-information.
